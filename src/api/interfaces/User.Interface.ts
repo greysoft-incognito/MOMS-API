@@ -5,6 +5,8 @@ interface UserInterface extends Document {
   fullname: string;
   password: string;
   role: string;
+  verificationToken: string | undefined;
+  resetToken: string | undefined;
   comparePasswords(password: string): boolean;
   getSignedToken(): string;
 }

@@ -32,6 +32,9 @@ const userSchema: Schema = new Schema(
       type: String,
       enum: ['buyer', 'seller', 'admin'],
     },
+
+    resetToken: { type: String },
+    verificationToken: { type: String },
   },
   { timestamps: true }
 );

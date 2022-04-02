@@ -80,4 +80,53 @@ export default {
       throw new Error(error);
     }
   },
+
+  verifyEmail: async (data: { token: string }) => {
+    try {
+      const user = await User.findOne({
+        verificationToken: <string>data.token,
+      });
+
+      if (!user)
+        throw new ErrorResponse(constants.MESSAGES.INVALID_CREDENTIALS, 406);
+
+      user.verificationToken = undefined;
+      const result = await user.save();
+      return result;
+    } catch (error: any) {
+      throw new Error(error);
+    }
+  },
+  getResetToken: async (data: { email: string }) => {
+    try {
+      const user = await User.findOne({ email: <string>data.email });
+
+      if (!user)
+        throw new ErrorResponse(constants.MESSAGES.INVALID_CREDENTIALS, 404);
+      if (!user.resetToken) {
+        const resetToken = Math.floor(Math.random() * 1e30).toString();
+        user.resetToken = resetToken;
+        await user.save();
+        return resetToken;
+      } else return user.resetToken;
+    } catch (error: any) {
+      throw new Error(error);
+    }
+  },
+  resetPassword: async (data: { token: string; password: string }) => {
+    try {
+      const user = await User.findOne({ resetToken: data.token }).select(
+        '+password'
+      );
+
+      if (!user)
+        throw new ErrorResponse(constants.MESSAGES.INVALID_CREDENTIALS, 404);
+      user.password = data.password;
+      user.resetToken = undefined;
+      await user.save();
+      return true;
+    } catch (error: any) {
+      throw new Error(error);
+    }
+  },
 };

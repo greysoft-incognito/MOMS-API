@@ -5,6 +5,7 @@ import logger from 'morgan';
 import error404 from './api/middlewares/404handler';
 import { errorHandler } from './api/middlewares/errorHandler';
 import db from './config/db';
+import authRoute from './api/routes/auth.route';
 
 const app: Application = express();
 
@@ -15,6 +16,7 @@ app.use(logger('dev'));
 app.use(express.json());
 
 //routes
+app.use('/api', authRoute);
 app.use(errorHandler);
 app.use('*', error404);
 
