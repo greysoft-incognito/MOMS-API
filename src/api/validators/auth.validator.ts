@@ -1,5 +1,5 @@
 import { check } from 'express-validator';
-import * as constants from '../../config/constants';
+import constants from '../../config/constants';
 
 export default {
   login: [

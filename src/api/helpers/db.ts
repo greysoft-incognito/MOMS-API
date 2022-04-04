@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import config from '../../config/config';
 import seeder from './seeder';
-import * as constants from '../../config/constants';
+import constants from '../../config/constants';
 
 export default () => {
   mongoose
@@ -9,5 +9,8 @@ export default () => {
     .then(() => seeder())
     .then(() => console.log(constants.MESSAGES.SEED_ACCOUNT_CREATED))
     .then(() => console.log(constants.MESSAGES.MONGODB_CONNECTED))
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.log(err);
+      process.exit(1);
+    });
 };

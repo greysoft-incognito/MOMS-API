@@ -1,6 +1,6 @@
 import User from '../models/User.model';
 import { ErrorResponse } from '../helpers/response';
-import * as constants from '../../config/constants';
+import constants from '../../config/constants';
 
 export default {
   login: async (data: { email: string; password: string }) => {

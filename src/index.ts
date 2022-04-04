@@ -7,15 +7,18 @@ import { errorHandler } from './api/middlewares/errorHandler';
 import db from './api/helpers/db';
 import authRoute from './api/routes/auth.route';
 import passport from 'passport';
-import './api/helpers/passport';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
 
+require('./api/helpers/passport');
+
 const app: Application = express();
+
 const store = MongoStore.create({
   mongoUrl: <string>config.mongodb.url,
   collectionName: 'sessions',
 });
+
 const Session: session.SessionOptions = {
   secret: <string>config.sessionToken,
   resave: false,
@@ -25,7 +28,7 @@ const Session: session.SessionOptions = {
     // path: '/',
     // httpOnly: true,
     secure: false,
-    maxAge: 1000 * 60 * 60 * 24,
+    maxAge: undefined, //1000 * 60 * 60 * 24,
   },
 };
 

@@ -14,6 +14,9 @@ export default {
   buyerReg: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const result = await authService.BuyerRegistration(req.body);
+      req.login(result, (err) => {
+        throw new Error(err);
+      });
       SuccessResponse.send(res, result);
     } catch (error) {
       next(error);
