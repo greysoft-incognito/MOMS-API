@@ -104,7 +104,9 @@ export default {
       if (!user)
         throw new ErrorResponse(constants.MESSAGES.INVALID_CREDENTIALS, 404);
       if (!user.resetToken) {
-        const resetToken = Math.floor(Math.random() * 1e30).toString();
+        const resetToken = [...crypto.getRandomValues(new Uint8Array(40))]
+          .map((m) => ('0' + m.toString(16)).slice(-2))
+          .join('');
         user.resetToken = resetToken;
         await user.save();
         return resetToken;

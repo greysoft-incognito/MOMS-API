@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
-import config from './config';
+import config from '../../config/config';
 import seeder from './seeder';
-import * as constants from './constants';
+import * as constants from '../../config/constants';
 
 export default () => {
   mongoose

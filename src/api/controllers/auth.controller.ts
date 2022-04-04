@@ -55,4 +55,11 @@ export default {
       next(error);
     }
   },
+  logout: (req: Request, res: Response, next: NextFunction) => {
+    req.logout();
+    req.session.destroy((err) => {
+      if (err) next(err);
+    });
+    SuccessResponse.send(res, { message: 'ysddre logged out' });
+  },
 };

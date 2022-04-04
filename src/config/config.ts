@@ -11,6 +11,8 @@ export default {
     password: process.env.SEEDER_PASSWORD,
   },
 
+  sessionToken: process.env.SESSION_TOKEN,
+
   redis: {
     url: process.env.REDIS_URL,
   },
