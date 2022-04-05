@@ -6,30 +6,21 @@ import passport from 'passport';
 import authMiddleware from '../middlewares/auth.middleware';
 
 const router: Router = Router();
-
+/**
+ *  buyers
+ */
 // login
 router.post(
   '/login',
   authValidator.login,
   validator,
-  passport.authenticate('local', {
+  passport.authenticate(['local', 'facebook', 'google'], {
     failWithError: true,
     successMessage: 'user logged in successfully',
   })
 );
-// router.post('/login/open', login);
-router.get('/logout', authMiddleware.userIsAuth, authController.logout);
 
-// seller login
-router.post(
-  'seller/login',
-  authValidator.login,
-  validator,
-  authController.login
-);
-// router.post('/login/open', login);
-
-// buyer signup // open auth // signup with email alone
+//sign-up
 router.post(
   '/sign-up/fast',
   authValidator.email,
@@ -42,9 +33,19 @@ router.post(
   validator,
   authController.buyerReg
 );
-//router.post('/sign-up/open', register);
+router.get('/logout', authMiddleware.userIsAuth, authController.logout);
+/**
+ * sellers
+ */
+// seller login
+router.post(
+  'seller/login',
+  authValidator.login,
+  validator,
+  authController.login
+);
 
-// seller sign up // open auth
+// seller sign up
 router.post(
   '/sign-up/shop',
   authValidator.sellerRegister,
@@ -52,7 +53,6 @@ router.post(
   authController.sellerReg
 );
 // router.post('/sign-up/shop/transition', register);
-// router.post('/sign-up/shop/open', register);
 
 // verify email
 router.get('/verify-email', authController.verifyEmail);
