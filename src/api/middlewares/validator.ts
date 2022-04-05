@@ -4,7 +4,7 @@ import { ErrorResponse } from '../helpers/response';
 // import constants from '../../../config/constants.js';
 // import fs from 'fs';
 
-export default (req: Request, res: Response, next: NextFunction) => {
+const validator = (req: Request, res: Response, next: NextFunction) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
@@ -13,3 +13,5 @@ export default (req: Request, res: Response, next: NextFunction) => {
   }
   next();
 };
+
+export default validator;

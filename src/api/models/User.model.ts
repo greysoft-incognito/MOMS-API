@@ -8,10 +8,6 @@ const userSchema: Schema = new Schema(
   {
     email: {
       type: String,
-      match: [
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-        'please provide avalid email',
-      ],
       required: true,
       unique: true,
     },
@@ -31,6 +27,21 @@ const userSchema: Schema = new Schema(
     role: {
       type: String,
       enum: ['buyer', 'seller', 'admin'],
+    },
+
+    resetToken: { type: String },
+    verificationToken: { type: String },
+    verifiedEmail: { type: Boolean, default: false },
+    avatar: { type: String },
+    services: {
+      google: {
+        id: { type: String },
+        token: { type: String },
+      },
+      facebook: {
+        id: { type: String },
+        token: { type: String },
+      },
     },
   },
   { timestamps: true }

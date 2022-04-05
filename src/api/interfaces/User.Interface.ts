@@ -5,6 +5,20 @@ interface UserInterface extends Document {
   fullname: string;
   password: string;
   role: string;
+  verifiedEmail: boolean;
+  verificationToken: string | undefined;
+  resetToken: string | undefined;
+  avatar?: string;
+  services: {
+    google: {
+      id?: string;
+      token?: string;
+    };
+    facebook: {
+      id?: string;
+      token?: string;
+    };
+  };
   comparePasswords(password: string): boolean;
   getSignedToken(): string;
 }
