@@ -1,5 +1,5 @@
-import config from './config';
-import User from '../api/models/User.model';
+import config from '../../config/config';
+import User from '../models/User.model';
 
 export default async () => {
   const defaultEmail: string = config.seeder.email as string;
