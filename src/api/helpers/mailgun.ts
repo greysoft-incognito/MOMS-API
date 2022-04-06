@@ -7,7 +7,7 @@ const mg = mailgun.client({
   username: 'api',
   key: <string>config.mailgun.apiKey,
   public_key: <string>config.mailgun.public_key,
-  url: 'api.mailgun.net',
+  //url: 'api.mailgun.net',
 });
 
 export default mg;
