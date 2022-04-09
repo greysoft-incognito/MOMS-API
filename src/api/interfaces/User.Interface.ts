@@ -1,4 +1,4 @@
-import { Document } from 'mongoose';
+import mongoose, { Document } from 'mongoose';
 
 interface UserInterface extends Document {
   email: string;
@@ -19,6 +19,7 @@ interface UserInterface extends Document {
       token?: string;
     };
   };
+  store: [mongoose.Types.ObjectId];
   comparePasswords(password: string): boolean;
   getSignedToken(): string;
 }
