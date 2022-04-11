@@ -1,4 +1,5 @@
 import 'dotenv/config';
+import { moveMessagePortToContext } from 'worker_threads';
 
 export default {
   mongodb: {
@@ -44,6 +45,11 @@ export default {
 
   mailgun: {
     apiKey: process.env.MAILGUN_API_KEY,
+    public_key: process.env.MAILGUN_PUB_KEY,
     domain: process.env.MAILGUN_DOMAIN,
+  },
+  emailAccount: {
+    name: process.env.MG_EMAIL_SENDER || 'moms',
+    email: process.env.MG_EMAIL_ACCOUNT || 'support@moms.ng',
   },
 };

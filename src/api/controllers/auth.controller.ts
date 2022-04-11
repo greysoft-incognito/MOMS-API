@@ -24,7 +24,10 @@ export default {
   },
   sellerReg: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const result = await authService.sellerRegistration(req.body);
+      const result = await authService.sellerRegistration(
+        req.body,
+        req.hostname
+      );
       SuccessResponse.send(res, result);
     } catch (error) {
       next(error);
@@ -40,7 +43,10 @@ export default {
   },
   forgotPassword: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const result = await authService.getResetToken({ email: req.body.email });
+      const result = await authService.getResetToken(
+        { email: req.body.email },
+        req.hostname
+      );
       //send mail
       SuccessResponse.send(res, { message: 'email sent', data: result });
     } catch (error) {

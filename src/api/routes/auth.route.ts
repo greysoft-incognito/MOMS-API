@@ -10,11 +10,27 @@ const router: Router = Router();
  *  buyers
  */
 // login
+
 router.post(
   '/login',
   authValidator.login,
   validator,
-  passport.authenticate(['local', 'facebook', 'google'], {
+  passport.authenticate(['local'], {
+    failWithError: true,
+    successMessage: 'user logged in successfully',
+  })
+);
+router.get(
+  '/login-facebook',
+  passport.authenticate(['facebook'], {
+    failWithError: true,
+    successMessage: 'user logged in successfully',
+  })
+);
+
+router.get(
+  '/login-google',
+  passport.authenticate(['google'], {
     failWithError: true,
     successMessage: 'user logged in successfully',
   })
@@ -55,7 +71,7 @@ router.post(
 // router.post('/sign-up/shop/transition', register);
 
 // verify email
-router.get('/verify-email', authController.verifyEmail);
+router.get('/verify-email/:token', authController.verifyEmail);
 
 // forgot password
 router.post(
@@ -67,7 +83,7 @@ router.post(
 
 // reset password
 router.post(
-  '/reset-password',
+  '/reset-password/:token',
   authValidator.password,
   validator,
   authController.resetPassword
