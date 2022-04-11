@@ -1,23 +1,25 @@
-import mongoose, { Document } from 'mongoose';
+import { Document, Types } from 'mongoose';
 
 export interface ProductInterface extends Document {
   name: string;
   price: number;
-  discount?: number;
-  QtyInStore: number;
+  discount: number;
+  qtyInStore: number;
   img: string[];
-  ratings?: number;
+  ratings: number;
   reviews?: [
     {
-      user: mongoose.Types.ObjectId;
+      user: Types.ObjectId;
       comments: string;
     }
   ];
   categories: string[];
   subCategories: string[];
   desc: {
-    colour?: string;
+    color?: string;
     size?: string;
   };
-  seller: mongoose.Types.ObjectId;
+  seller: Types.ObjectId;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any;
 }

@@ -1,23 +1,34 @@
-import mongoose, { Document } from 'mongoose';
+import { Document, Types } from 'mongoose';
+
+export interface CartInterface {
+  product: Types.ObjectId;
+  quantity: number;
+  price: number;
+  desc: {
+    color?: string;
+    size?: number;
+  };
+}
 
 export interface OrderInterface extends Document {
-  goods: [
-    {
-      product: mongoose.Types.ObjectId;
-      quantity: number;
-      price: number;
-      desc: {
-        color?: string;
-        size?: number;
-      };
-    }
-  ];
+  cart: {
+    product: Types.ObjectId;
+    quantity: number;
+    price: number;
+    desc: {
+      color?: string;
+      size?: number;
+    };
+  };
   totalPrice: number;
-  buyer: mongoose.Types.ObjectId;
-  seller: mongoose.Types.ObjectId;
+  buyer: Types.ObjectId;
+  seller: Types.ObjectId;
   txn_id: number;
   status: 'pending' | 'shipped' | 'recieved';
   discount: number;
   shippingAddress: string;
-  tracking: unknown;
+  tracking: {
+    tracking_id: string;
+    endpoint: string;
+  };
 }
