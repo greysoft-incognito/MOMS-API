@@ -4,7 +4,7 @@ import { UserInterface } from '../interfaces/User.Interface';
 import jwt from 'jsonwebtoken';
 import config from '../../config/config';
 
-const userSchema: Schema = new Schema(
+const userSchema: Schema = new Schema<UserInterface>(
   {
     email: {
       type: String,
@@ -12,7 +12,7 @@ const userSchema: Schema = new Schema(
       unique: true,
     },
 
-    name: {
+    fullname: {
       type: String,
       required: true,
     },
@@ -42,6 +42,9 @@ const userSchema: Schema = new Schema(
         id: { type: String },
         token: { type: String },
       },
+    },
+    store: {
+      type: [Schema.Types.ObjectId],
     },
   },
   { timestamps: true }
