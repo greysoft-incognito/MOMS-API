@@ -6,8 +6,8 @@ interface UserInterface extends Document {
   password: string;
   role: string;
   verifiedEmail: boolean;
-  verificationToken: string | undefined;
-  resetToken: string | undefined;
+  verificationToken?: string;
+  resetToken?: string;
   avatar?: string;
   services: {
     google: {

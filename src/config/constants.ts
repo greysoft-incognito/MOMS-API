@@ -22,6 +22,8 @@ export default {
     INVALID_EMAIL: 'invalid email',
     SHORT_PASSWORD: 'password must be at least 8 characters',
     USER_EXISTS: 'user exists',
+    NEW_PASSWORD:
+      'you have successfully logged in and your password as been sent to you',
   },
 
   ENUMS: {},
