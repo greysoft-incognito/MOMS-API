@@ -6,8 +6,10 @@ export interface CartInterface {
   price: number;
   desc: {
     color?: string;
-    size?: number;
+    size?: number | string;
   };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any;
 }
 
 export interface OrderInterface extends Document {
@@ -17,7 +19,7 @@ export interface OrderInterface extends Document {
     price: number;
     desc: {
       color?: string;
-      size?: number;
+      size?: number | string;
     };
   };
   totalPrice: number;

@@ -191,11 +191,8 @@ const googleStrategy = new GoogleStrategy(
 );
 passport.use(googleStrategy);
 
-type User = {
-  _id?: number;
-};
 // user serialization
-passport.serializeUser((user: User, done) => {
+passport.serializeUser((user, done) => {
   done(null, user._id);
 });
 // user deserialization
