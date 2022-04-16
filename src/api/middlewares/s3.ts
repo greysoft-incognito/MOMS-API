@@ -64,7 +64,7 @@ function deleteUpload(key: string | aws.S3.ObjectIdentifier[]) {
   }
 }
 
-const upload = multer({
+const avi = multer({
   storage: storage,
 }).single('avatar');
 
@@ -72,4 +72,4 @@ const img = multer({
   storage: storage,
 }).array('img');
 
-export { upload, img, deleteUpload };
+export { avi, img, deleteUpload };

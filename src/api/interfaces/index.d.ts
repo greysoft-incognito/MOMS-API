@@ -12,5 +12,20 @@ declare global {
     interface User {
       _id?: string;
     }
+    interface Request {
+      file?: Express.Multer.File & Express.MulterS3.File;
+      files?:
+        | {
+            [fieldname: string]: Multer.File[] & Express.MulterS3.File[];
+          }
+        | Multer.File[]
+        | Express.MulterS3.File[]
+        | undefined;
+    }
   }
 }
+// declare namespace Express {
+//   export interface Request {
+//     file: Express.Multer.Files & Express.MulterS3.File;
+//   }
+// }
