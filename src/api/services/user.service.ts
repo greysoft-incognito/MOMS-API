@@ -2,6 +2,7 @@ import { ErrorResponse } from '../helpers/response';
 import User from '../models/User.model';
 import constants from '../../config/constants';
 import { deleteUpload } from '../middlewares/s3';
+
 export default {
   updatePassword: async (id: string, oldPassword: string, password: string) => {
     try {
@@ -14,6 +15,7 @@ export default {
       user.password = password;
       const result = await user.save();
       return result;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       throw new Error(error);
     }
@@ -28,6 +30,7 @@ export default {
       user.avatar = avi;
       const result = await user.save();
       return result;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       throw new Error(error);
     }
@@ -39,6 +42,17 @@ export default {
       user.fullname = fullname;
       const result = await user.save();
       return result;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      throw new Error(error);
+    }
+  },
+  getMe: async (id: string) => {
+    try {
+      const result = await User.findById(id);
+      if (!result) throw new ErrorResponse('user not found', 400);
+      return result;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       throw new Error(error);
     }
