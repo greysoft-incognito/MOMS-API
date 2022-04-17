@@ -11,14 +11,13 @@ router.get(
   validator,
   cartController.addToCart
 );
-router.get('/get', cartController.removeFromCart);
+router.get('/get', cartController.getCart);
 router.delete(
   '/remove-item/:productId',
   cartValidator.removeItem,
   validator,
   cartController.removeFromCart
 );
-
 router.delete('/remove-all', cartController.removeAllFromCart);
 
 export default router;

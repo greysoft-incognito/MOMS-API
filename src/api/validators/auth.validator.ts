@@ -24,7 +24,7 @@ export default {
     check('password2').custom((value: string, { req }) => {
       if (value !== req.body.password) {
         // throw error if passwords do not match
-        throw new Error(constants.MESSAGES.PASSWORD_MATCH_ERROR);
+        return false;
       } else {
         return value;
       }
