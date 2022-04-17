@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ErrorResponse } from '../helpers/response';
 import mg from '../helpers/mailgun';
+import User from '../models/User.model';
 
 export default {
   mail: {
@@ -92,11 +92,46 @@ export default {
   },
 
   users: {
-    //     getAll: async (req,res)=>{
-    //         await UserModel.find({})
-    //             .then(users=>{
-    //                 res.send(users)
-    //             })
-    //             .catch(err=>res.send(err))
+    get: async (id: string) => {
+      try {
+        const result = await User.findById(id);
+        return result;
+      } catch (error: any) {
+        throw new Error(error);
+      }
+    },
+    getAll: async () => {
+      try {
+        const result = await User.find({});
+        return result;
+      } catch (error: any) {
+        throw new Error(error);
+      }
+    },
+    delete: async (id: string) => {
+      try {
+        const result = await User.findByIdAndDelete(id);
+        return result;
+      } catch (error: any) {
+        throw new Error(error);
+      }
+    },
+
+    // getVerificationRequests: async ()=>{
+    //   try {
+
+    //   } catch (error: any) {
+    //       throw new Error(error)
+
+    //   }
+    // },
+    // verifySellers: async ()=> {
+    //   try {
+
+    //   } catch (error: any) {
+    //       throw new Error(error)
+
+    //   }
+    // },
   },
 };

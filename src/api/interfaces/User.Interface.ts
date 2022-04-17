@@ -8,7 +8,10 @@ interface UserInterface extends Document {
   verifiedEmail: boolean;
   verificationToken?: string;
   resetToken?: string;
-  avatar?: string;
+  avatar?: {
+    key: string;
+    url: string;
+  };
   services: {
     google: {
       id?: string;

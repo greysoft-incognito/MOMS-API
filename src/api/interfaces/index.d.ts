@@ -24,8 +24,3 @@ declare global {
     }
   }
 }
-// declare namespace Express {
-//   export interface Request {
-//     file: Express.Multer.Files & Express.MulterS3.File;
-//   }
-// }

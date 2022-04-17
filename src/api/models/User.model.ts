@@ -32,7 +32,10 @@ const userSchema: Schema = new Schema<UserInterface>(
     resetToken: { type: String },
     verificationToken: { type: String },
     verifiedEmail: { type: Boolean, default: false },
-    avatar: { type: String },
+    avatar: {
+      key: { type: String },
+      url: { type: String },
+    },
     services: {
       google: {
         id: { type: String },
