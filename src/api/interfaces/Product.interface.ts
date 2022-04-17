@@ -3,10 +3,15 @@ import { Document, Types } from 'mongoose';
 export interface ProductInterface extends Document {
   name: string;
   price: number;
-  discount: number;
+  discount?: number;
   qtyInStore: number;
-  img: string[];
-  ratings: number;
+  img: [
+    {
+      key: string;
+      url: string;
+    }
+  ];
+  ratings?: number;
   reviews?: [
     {
       user: Types.ObjectId;

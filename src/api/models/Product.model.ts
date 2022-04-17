@@ -7,7 +7,12 @@ const productSchema: Schema = new Schema<ProductInterface>(
     price: { type: Number, required: true },
     discount: { type: Number, required: true, default: 0 },
     qtyInStore: { type: Number, required: true, default: 0 },
-    img: [{ type: String }],
+    img: [
+      {
+        key: { type: String },
+        url: { type: String },
+      },
+    ],
     ratings: { type: Number, required: true, default: 0 },
     reviews: [
       {
