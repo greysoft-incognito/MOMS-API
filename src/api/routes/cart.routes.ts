@@ -6,18 +6,18 @@ import { Router } from 'express';
 const router = Router();
 
 router.get(
-  '/add-cart/:productId',
+  '/:productId',
   cartValidator.create,
   validator,
   cartController.addToCart
 );
-router.get('/get', cartController.getCart);
+router.get('/', cartController.getCart);
 router.delete(
-  '/remove-item/:productId',
+  '/:productId',
   cartValidator.removeItem,
   validator,
   cartController.removeFromCart
 );
-router.delete('/remove-all', cartController.removeAllFromCart);
+router.delete('/', cartController.removeAllFromCart);
 
 export default router;

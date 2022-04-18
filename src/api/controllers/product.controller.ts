@@ -5,6 +5,7 @@ import constants from '../../config/constants';
 import mongoose from 'mongoose';
 import { deleteUpload } from '../middlewares/s3';
 import { SuccessResponse } from '../helpers/response';
+import { UserInterface } from '../interfaces/User.Interface';
 
 export default {
   createProduct: async (req: Request, res: Response, next: NextFunction) => {
@@ -23,7 +24,8 @@ export default {
           url: val.location,
         });
       });
-      const id = <string>req.user?._id;
+      const user = <UserInterface>req.user;
+      const id = <string>user._id;
       const product: Partial<ProductInterface> = {
         name: req.body.productName,
         price: parseInt(req.body.price),
@@ -96,7 +98,8 @@ export default {
       const page = req.query.page as unknown as number;
       const query = req.query ? req.query : {};
       delete query.page;
-      const id = <string>req.user?._id;
+      const user = <UserInterface>req.user;
+      const id = <string>user._id;
       const result = await productService.seller.getProducts(query, id, page);
       SuccessResponse.send(res, result);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

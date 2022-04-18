@@ -24,7 +24,7 @@ export default {
     try {
       const user = await User.findById(id);
       if (!user) throw new ErrorResponse('user not found', 400);
-      if (user.avatar) {
+      if (user.avatar?.key) {
         await deleteUpload(user.avatar.key);
       }
       user.avatar = avi;

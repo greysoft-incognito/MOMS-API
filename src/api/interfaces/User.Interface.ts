@@ -9,7 +9,7 @@ interface UserInterface extends Document {
   verificationToken?: string;
   resetToken?: string;
   avatar?: {
-    key: string;
+    key?: string;
     url: string;
   };
   services: {

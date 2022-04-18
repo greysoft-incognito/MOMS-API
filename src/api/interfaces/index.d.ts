@@ -1,9 +1,10 @@
 import 'express-session';
-import { CartInterface } from '../interfaces/Order.interface';
+import { CartInterface } from './Order.interface';
+// import { UserInterface } from './User.Interface';
 
 declare module 'express-session' {
   interface SessionData {
-    cart: CartInterface[] | null;
+    cart?: CartInterface[];
   }
 }
 
@@ -21,6 +22,7 @@ declare global {
         | Multer.File[]
         | Express.MulterS3.File[]
         | undefined;
+      //user?: /*Express.User |*/ UserInterface;
     }
   }
 }
