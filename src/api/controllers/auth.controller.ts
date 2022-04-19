@@ -14,7 +14,7 @@ export default {
   buyerReg: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const result = await authService.BuyerRegistration(req.body);
-      req.login(result, (err) => {
+      req.login(result.result, (err) => {
         throw new Error(err);
       });
       SuccessResponse.send(res, result);
@@ -64,11 +64,11 @@ export default {
       next(error);
     }
   },
-  logout: (req: Request, res: Response, next: NextFunction) => {
+  logout: (req: Request, res: Response /*, next: NextFunction*/) => {
     req.logout();
-    req.session.destroy((err) => {
-      if (err) next(err);
-    });
-    SuccessResponse.send(res, { message: 'ysddre logged out' });
+    // req.session.destroy((err) => {
+    //   if (err) next(err);
+    // });
+    SuccessResponse.send(res, { message: 'successfully logged out' });
   },
 };

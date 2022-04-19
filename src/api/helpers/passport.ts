@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import passport from 'passport';
 import {
@@ -100,10 +101,11 @@ const fbVerifyFunction: FacebookVerifyFunction = function (
 
         // if the user is found, then log them in
         if (user) {
-          if (user.avatar) {
+          if (user.avatar?.url) {
             return done(null, user); // user found, return that user
           } else {
-            user.avatar = util.format(
+            user.avatar!.key = undefined;
+            user.avatar!.url = util.format(
               'http://graph.facebook.com/%s/picture?type=large',
               profile.id
             );
@@ -123,7 +125,7 @@ const fbVerifyFunction: FacebookVerifyFunction = function (
           newUser.services.facebook.token = accessToken;
           newUser.fullname = `{${profile._json.first_name} ${profile._json.last_name}`;
           newUser.email = profile._json.email;
-          newUser.avatar = util.format(
+          newUser.avatar!.url = util.format(
             'http://graph.facebook.com/%s/picture?type=large',
             profile.id
           );
@@ -175,7 +177,7 @@ const googleStrategy = new GoogleStrategy(
           newUser.services.google.token = accessToken;
           newUser.fullname = `${profile.name?.familyName} ${profile.name?.givenName}`;
           newUser.email = <string>profile._json.email;
-          newUser.avatar = profile._json.picture;
+          newUser.avatar!.url = <string>profile._json.picture;
 
           // save our user to the database
           newUser.save(function (err, new_user) {
@@ -191,11 +193,12 @@ const googleStrategy = new GoogleStrategy(
 );
 passport.use(googleStrategy);
 
-type User = {
-  _id?: number;
+type UserT = {
+  _id?: string;
 };
+
 // user serialization
-passport.serializeUser((user: User, done) => {
+passport.serializeUser((user: UserT, done) => {
   done(null, user._id);
 });
 // user deserialization

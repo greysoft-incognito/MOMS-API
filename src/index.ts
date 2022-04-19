@@ -4,11 +4,16 @@ import cors from 'cors';
 import logger from 'morgan';
 import error404 from './api/middlewares/404handler';
 import { errorHandler } from './api/middlewares/errorHandler';
+import authMiddleware from './api/middlewares/auth.middleware';
 import db from './api/helpers/db';
-import authRoute from './api/routes/auth.route';
 import passport from 'passport';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
+// Routes
+import authRoute from './api/routes/auth.route';
+import userRoute from './api/routes/user.route';
+import productRoute from './api/routes/product.route';
+import cartRoute from './api/routes/cart.route';
 
 require('./api/helpers/passport');
 
@@ -43,6 +48,10 @@ app.use(passport.session());
 
 //routes
 app.use('/api', authRoute);
+app.use('/api/product', authMiddleware.sellerIsAuth, productRoute);
+app.use('/api/me', authMiddleware.userIsAuth, userRoute);
+app.use('/api/cart', cartRoute);
+
 app.use(errorHandler);
 app.use('*', error404);
 

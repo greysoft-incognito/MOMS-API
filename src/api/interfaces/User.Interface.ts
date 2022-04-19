@@ -1,4 +1,4 @@
-import { Document } from 'mongoose';
+import mongoose, { Document } from 'mongoose';
 
 interface UserInterface extends Document {
   email: string;
@@ -8,7 +8,10 @@ interface UserInterface extends Document {
   verifiedEmail: boolean;
   verificationToken?: string;
   resetToken?: string;
-  avatar?: string;
+  avatar?: {
+    key?: string;
+    url: string;
+  };
   services: {
     google: {
       id?: string;
@@ -19,6 +22,7 @@ interface UserInterface extends Document {
       token?: string;
     };
   };
+  store: [mongoose.Types.ObjectId];
   comparePasswords(password: string): boolean;
   getSignedToken(): string;
 }

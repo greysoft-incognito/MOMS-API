@@ -1,5 +1,4 @@
 import 'dotenv/config';
-import { moveMessagePortToContext } from 'worker_threads';
 
 export default {
   mongodb: {
@@ -34,6 +33,7 @@ export default {
     accessKeyId: process.env.AWS_S3_ACCESS_KEY_ID,
     secretAccessKey: process.env.AWS_S3_SECRET_ACCESS_KEY,
     bucketName: process.env.AWS_STORAGE_BUCKET_NAME,
+    reigon: process.env.AWS_BUCKET_REGION,
   },
 
   jwt: {
