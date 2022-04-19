@@ -13,7 +13,7 @@ export default async () => {
     if (!admin) {
       await User.create({
         email: defaultEmail,
-        name: 'admin',
+        fullname: 'admin',
         password: defaultPassword,
         role: 'admin',
       });

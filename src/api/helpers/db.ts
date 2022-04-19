@@ -10,7 +10,8 @@ export default () => {
     .then(() => console.log(constants.MESSAGES.SEED_ACCOUNT_CREATED))
     .then(() => console.log(constants.MESSAGES.MONGODB_CONNECTED))
     .catch((err) => {
-      console.log(err);
-      process.exit(1);
+      //console.log(err);
+      //process.exit(1);
+      throw new Error(err);
     });
 };

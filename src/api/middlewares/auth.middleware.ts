@@ -10,5 +10,5 @@ export default {
     } else next(new ErrorResponse(constants.MESSAGES.UNAUTHORIZED, 401));
   },
 
-  buyerIsAuth: passport.authenticate('jwt', { session: false }), //TODO
+  sellerIsAuth: passport.authenticate('jwt', { session: false }), //TODO
 };
