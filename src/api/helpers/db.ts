@@ -11,7 +11,7 @@ export default () => {
     .then(() => console.log(constants.MESSAGES.MONGODB_CONNECTED))
     .catch((err) => {
       //console.log(err);
-      //process.exit(1);
+      //process.exit(0);
       throw new Error(err);
     });
 };
