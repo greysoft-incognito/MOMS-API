@@ -8,7 +8,7 @@ class Emailing {
   domain: string;
   data;
   constructor(data: To) {
-    this.from = config.emailAccount.email;
+    this.from = <string>config.emailAccount.email;
     this.domain = <string>config.mailgun.domain;
     this.data = data;
   }
