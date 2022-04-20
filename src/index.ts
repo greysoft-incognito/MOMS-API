@@ -3,6 +3,7 @@ import express, { Application } from 'express';
 import cors from 'cors';
 import logger from 'morgan';
 import error404 from './api/middlewares/404handler';
+import docs from './api/middlewares/docs';
 import { errorHandler } from './api/middlewares/errorHandler';
 import authMiddleware from './api/middlewares/auth.middleware';
 import db from './api/helpers/db';
@@ -47,6 +48,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //routes
+app.use('/', docs);
 app.use('/api', authRoute);
 app.use('/api/product', authMiddleware.sellerIsAuth, productRoute);
 app.use('/api/me', authMiddleware.userIsAuth, userRoute);

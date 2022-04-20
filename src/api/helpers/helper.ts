@@ -2,12 +2,11 @@
 // import { OrderInterface } from '../interfaces/Order.interface';
 // import { ProductInterface } from '../interfaces/Product.interface';
 // import { UserInterface } from '../interfaces/User.Interface';
+import crypto from 'crypto';
 
 export default {
   generateToken: () => {
-    return [...crypto.getRandomValues(new Uint8Array(40))]
-      .map((m) => ('0' + m.toString(16)).slice(-2))
-      .join('');
+    return crypto.randomBytes(48).toString('hex');
   },
   paginate: async (
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

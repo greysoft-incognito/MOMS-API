@@ -49,7 +49,9 @@ export default {
     domain: process.env.MAILGUN_DOMAIN,
   },
   emailAccount: {
-    name: process.env.MG_EMAIL_SENDER || 'moms',
-    email: process.env.MG_EMAIL_ACCOUNT || 'support@moms.ng',
+    name: process.env.MG_EMAIL_SENDER,
+    email: process.env.MG_EMAIL_ACCOUNT,
   },
+
+  docs: process.env.DOCS
 };
