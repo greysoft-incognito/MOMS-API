@@ -15,25 +15,35 @@ router.post(
   '/login',
   authValidator.login,
   validator,
-  passport.authenticate(['local'], {
+  passport.authenticate(
+    ['local'] /*, {
     failWithError: true,
     successMessage: 'user logged in successfully',
-  })
+  }*/
+  ),
+  authController.passportLogin
 );
 router.get(
-  '/login-facebook',
-  passport.authenticate(['facebook'], {
-    failWithError: true,
-    successMessage: 'user logged in successfully',
-  })
+  '/facebook',
+  passport.authenticate(['facebook'], { scope: ['email', 'profile'] })
 );
 
 router.get(
-  '/login-google',
-  passport.authenticate(['google'], {
-    failWithError: true,
-    successMessage: 'user logged in successfully',
-  })
+  '/auth/facebook/redirect',
+  passport.authenticate(['facebook']),
+  authController.passportLogin
+);
+
+router.get(
+  '/google',
+  passport.authenticate(['google'], { scope: ['email', 'profile'] }),
+  authController.passportLogin
+);
+
+router.get(
+  '/google/redirect',
+  passport.authenticate(['google']),
+  authController.passportLogin
 );
 
 //sign-up
@@ -43,6 +53,7 @@ router.post(
   validator,
   authController.buyerReg
 );
+
 router.post(
   '/sign-up/full',
   authValidator.buyerRegister,
@@ -54,16 +65,11 @@ router.get('/logout', authMiddleware.userIsAuth, authController.logout);
  * sellers
  */
 // seller login
-router.post(
-  'seller/login',
-  authValidator.login,
-  validator,
-  authController.login
-);
+router.post('/login2', authValidator.login, validator, authController.login);
 
 // seller sign up
 router.post(
-  '/sign-up/shop',
+  '/sign-up',
   authValidator.sellerRegister,
   validator,
   authController.sellerReg
