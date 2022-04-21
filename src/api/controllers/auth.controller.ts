@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { SuccessResponse } from '../helpers/response';
+import { ErrorResponse, SuccessResponse } from '../helpers/response';
 import authService from '../services/auth.service';
 
 export default {
@@ -15,10 +15,13 @@ export default {
     try {
       const result = await authService.BuyerRegistration(req.body);
       req.login(result.result, (err) => {
-        throw new Error(err);
+        if (err) {
+          throw new Error(err);
+        }
       });
       SuccessResponse.send(res, result);
     } catch (error) {
+      console.log(error);
       next(error);
     }
   },
@@ -63,6 +66,15 @@ export default {
     } catch (error) {
       next(error);
     }
+  },
+  passportLogin: (req: Request, res: Response, next: NextFunction) => {
+    if (req.user) {
+      SuccessResponse.send(res, {
+        success: true,
+        message: 'user logged in successfully',
+      });
+    }
+    next(new ErrorResponse('incorrect details', 401));
   },
   logout: (req: Request, res: Response /*, next: NextFunction*/) => {
     req.logout();

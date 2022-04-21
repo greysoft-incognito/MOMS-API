@@ -48,7 +48,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //routes
-app.use('/', docs);
+app.use('/docs', docs);
 app.use('/api', authRoute);
 app.use('/api/product', authMiddleware.sellerIsAuth, productRoute);
 app.use('/api/me', authMiddleware.userIsAuth, userRoute);
