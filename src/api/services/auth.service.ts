@@ -31,7 +31,7 @@ export default {
 
   BuyerRegistration: async (data: {
     email: string;
-    name?: string;
+    fullname?: string;
     password?: string;
   }) => {
     try {
@@ -40,16 +40,18 @@ export default {
         '+password'
       );
       if (user) throw new ErrorResponse(constants.MESSAGES.USER_EXISTS, 406);
-      if (data.name === undefined && data.password === undefined) {
+      if (data.fullname === undefined && data.password === undefined) {
         array = data.email.split('@');
-        data.name = array[0];
+        data.fullname = array[0];
         data.password = helper.generateToken().slice(0, 9); //Math.floor(Math.random() * 10000000).toString();
         const mail: To = {
-          to: { name: data.name, email: data.email },
+          to: { name: data.fullname, email: data.email },
           url: data.password,
         };
         const email = new Emailing(mail);
-        await email.newPassword(); //TODO
+        const mailing = await email.newPassword(); //TODO
+        console.log(mailing);
+
         const result = await User.create(data);
         return { result, message: constants.MESSAGES.NEW_PASSWORD };
       }
@@ -64,7 +66,7 @@ export default {
   sellerRegistration: async (
     data: {
       email: string;
-      name: string;
+      fullname: string;
       password: string;
       verificationToken?: string;
     },
@@ -80,11 +82,11 @@ export default {
       data.verificationToken = token;
       const result = await User.create(data);
       const mail: To = {
-        to: { name: data.name, email: data.email },
-        url: `${url}/api/user/verify-email/${token}`,
+        to: { name: data.fullname, email: data.email },
+        url: `${url}/api/verify-email/${token}`,
       };
       const email = new Emailing(mail);
-      await email.forgotPassword();
+      await email.verify();
       return result;
     } catch (error: any) {
       throw new Error(error);
@@ -123,7 +125,7 @@ export default {
       }
       const mail: To = {
         to: { name: user.fullname, email: data.email },
-        url: `${url}/api/user/reset-password/${resetToken}`,
+        url: `${url}/api/reset-password/${resetToken}`,
       };
       const email = new Emailing(mail);
       await email.forgotPassword();

@@ -76,9 +76,10 @@ class Emailing {
           <div class="main">
           <!-- brand name -->
               <h1>MOMS EXPRESS</h1>
-              <H3> Welcome "usersname" to MOMSExpress an online platform where you can shop for your desired products from different sellers around the world.
-                  Your Login password is: </H3>
-              <button> <a href="${this.data.url}"></a> Reset</button>
+              <H3> Welcome ${this.data.to.name} to MOMSExpress an online platform where you can shop for your desired products from different sellers around the world.
+                  Verify your Email: </H3>
+              <a href="${this.data.url}"><button>Verify</button></a>
+
           </div>
       </body>
       </html>`,
@@ -145,10 +146,10 @@ class Emailing {
           <div class="main">
           <!-- brand name -->
               <h1>MOMS EXPRESS</h1>
-              <H3> Welcome "usersname" to MOMSExpress an online platform where you can shop for your desired products from different sellers around the world.
+              <H3> Welcome ${this.data.to.name} to MOMSExpress an online platform where you can shop for your desired products from different sellers around the world.
                   Your Login password is: </H3>
-              <button> <a href="${this.data.url}"></a> Reset</button>
-          </div>
+                  <a href="${this.data.url}"><button>Reset</button></a>
+                  </div>
       </body>
       </html>`,
     };
@@ -213,7 +214,7 @@ class Emailing {
           <div class="main">
           <!-- brand name -->
               <h1>MOMS EXPRESS</h1>
-              <H3> Welcome "usersname" to MOMSExpress an online platform where you can shop for your desired products from different sellers around the world.
+              <H3> Welcome ${this.data.to.name} to MOMSExpress an online platform where you can shop for your desired products from different sellers around the world.
                   Your Login password is: </H3>
               <!-- <button> <a href=""></a> Reset</button> -->
       

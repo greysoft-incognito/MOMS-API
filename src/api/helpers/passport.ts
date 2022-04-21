@@ -29,6 +29,7 @@ import {
 
 import config from '../../config/config';
 import util from 'util';
+import helper from './helper';
 
 // local strategy
 const strategyOptions: IStrategyOptions = {
@@ -41,18 +42,22 @@ const verifyCallBackLocal: VerifyFunction = (
   done
 ) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  User.findOne({ email: username }, function cb(err: any, user: UserInterface) {
-    if (err) {
-      return done(err, false);
+  User.findOne(
+    { email: username },
+    '+password',
+    function cb(err: any, user: UserInterface) {
+      if (err) {
+        return done(err, false);
+      }
+      if (!user) {
+        return done(null, false);
+      }
+      if (!user.comparePasswords(password)) {
+        return done(null, false);
+      }
+      return done(null, user);
     }
-    if (!user) {
-      return done(null, false);
-    }
-    if (!user.comparePasswords(password)) {
-      return done(null, false);
-    }
-    return done(null, user);
-  });
+  );
 };
 const localStrategy = new LocalStrategy(strategyOptions, verifyCallBackLocal);
 
@@ -125,6 +130,7 @@ const fbVerifyFunction: FacebookVerifyFunction = function (
           newUser.services.facebook.token = accessToken;
           newUser.fullname = `{${profile._json.first_name} ${profile._json.last_name}`;
           newUser.email = profile._json.email;
+          newUser.password = helper.generateToken().slice(0, 9);
           newUser.avatar!.url = util.format(
             'http://graph.facebook.com/%s/picture?type=large',
             profile.id
@@ -178,6 +184,7 @@ const googleStrategy = new GoogleStrategy(
           newUser.fullname = `${profile.name?.familyName} ${profile.name?.givenName}`;
           newUser.email = <string>profile._json.email;
           newUser.avatar!.url = <string>profile._json.picture;
+          newUser.password = helper.generateToken().slice(0, 9);
 
           // save our user to the database
           newUser.save(function (err, new_user) {
