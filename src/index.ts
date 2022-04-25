@@ -14,6 +14,7 @@ import MongoStore from 'connect-mongo';
 import authRoute from './api/routes/auth.route';
 import userRoute from './api/routes/user.route';
 import productRoute from './api/routes/product.route';
+import searchRoute from './api/routes/search.route';
 import cartRoute from './api/routes/cart.route';
 
 require('./api/helpers/passport');
@@ -51,6 +52,7 @@ app.use(passport.session());
 app.use('/docs', docs);
 app.use('/api', authRoute);
 app.use('/api/product', authMiddleware.sellerIsAuth, productRoute);
+app.use('/api/search', searchRoute);
 app.use('/api/me', authMiddleware.userIsAuth, userRoute);
 app.use('/api/cart', cartRoute);
 
