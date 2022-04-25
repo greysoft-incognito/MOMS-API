@@ -26,7 +26,7 @@ export default {
     check('size').optional().isInt().trim(),
   ],
   update: [
-    param('productName').exists().isString().trim(),
+    param('productId').exists().isString().trim(),
     body('price').exists().isInt(),
     body('quantity').exists().isInt(),
     body('category').optional().isString().trim(),
