@@ -4,6 +4,7 @@ import constants from '../../config/constants';
 import Emailing from '../helpers/Emailing';
 import { To } from '../interfaces/Mail.interface';
 import helper from '../helpers/helper';
+import { UserInterface } from '../interfaces/User.Interface';
 
 export default {
   login: async (data: { email: string; password: string }) => {
@@ -33,6 +34,7 @@ export default {
     email: string;
     fullname?: string;
     password?: string;
+    role?: UserInterface['role'];
   }) => {
     try {
       let array: string[] | undefined = undefined;
@@ -43,6 +45,7 @@ export default {
       if (data.fullname === undefined && data.password === undefined) {
         array = data.email.split('@');
         data.fullname = array[0];
+        data.role = 'buyer';
         data.password = helper.generateToken().slice(0, 9); //Math.floor(Math.random() * 10000000).toString();
         const mail: To = {
           to: { name: data.fullname, email: data.email },
@@ -69,6 +72,7 @@ export default {
       fullname: string;
       password: string;
       verificationToken?: string;
+      role?: UserInterface['role'];
     },
     url: string
   ) => {
@@ -80,6 +84,7 @@ export default {
 
       const token = helper.generateToken();
       data.verificationToken = token;
+      data.role = 'seller';
       const result = await User.create(data);
       const mail: To = {
         to: { name: data.fullname, email: data.email },

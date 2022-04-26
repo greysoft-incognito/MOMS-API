@@ -4,7 +4,7 @@ interface UserInterface extends Document {
   email: string;
   fullname: string;
   password: string;
-  role: string;
+  role: 'buyer' | 'seller' | 'admin';
   verifiedEmail: boolean;
   verificationToken?: string;
   resetToken?: string;

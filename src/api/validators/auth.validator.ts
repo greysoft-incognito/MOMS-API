@@ -52,6 +52,7 @@ export default {
       .isEmail()
       .normalizeEmail()
       .withMessage(constants.MESSAGES.INVALID_EMAIL),
+    check('fullname').exists(),
     check('password')
       .isLength({ min: 8 })
       .withMessage(constants.MESSAGES.SHORT_PASSWORD),
