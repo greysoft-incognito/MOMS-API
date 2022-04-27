@@ -76,6 +76,7 @@ export default {
     }
     next(new ErrorResponse('incorrect details', 401));
   },
+
   logout: (req: Request, res: Response /*, next: NextFunction*/) => {
     req.logout();
     // req.session.destroy((err) => {
