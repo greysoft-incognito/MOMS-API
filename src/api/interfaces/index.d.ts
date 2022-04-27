@@ -5,6 +5,7 @@ import { CartInterface } from './Order.interface';
 declare module 'express-session' {
   interface SessionData {
     cart?: CartInterface[];
+    host: string;
   }
 }
 

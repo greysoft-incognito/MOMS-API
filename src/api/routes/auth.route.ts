@@ -25,7 +25,8 @@ router.post(
 );
 router.get(
   '/facebook',
-  passport.authenticate(['facebook'], { scope: ['email', 'profile'] })
+  passport.authenticate(['facebook'], { scope: ['email', 'profile'] }),
+  authController.passportSaveHost
 );
 
 router.get(
@@ -36,7 +37,8 @@ router.get(
 
 router.get(
   '/google',
-  passport.authenticate(['google'], { scope: ['email', 'profile'] })
+  passport.authenticate(['google'], { scope: ['email', 'profile'] }),
+  authController.passportSaveHost
 );
 
 router.get(

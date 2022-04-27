@@ -69,10 +69,20 @@ export default {
   },
   passportLogin: (req: Request, res: Response, next: NextFunction) => {
     if (req.user) {
+      if (req.session.host) {
+        res.redirect(req.session.host);
+      }
       SuccessResponse.send(res, {
         success: true,
         message: 'user logged in successfully',
       });
+    }
+    next(new ErrorResponse('incorrect details', 401));
+  },
+  passportSaveHost: (req: Request, res: Response, next: NextFunction) => {
+    if (req.user) {
+      req.session.host = <string>req.query?.host;
+      res.end();
     }
     next(new ErrorResponse('incorrect details', 401));
   },
