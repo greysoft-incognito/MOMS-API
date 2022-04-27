@@ -36,8 +36,7 @@ router.get(
 
 router.get(
   '/google',
-  passport.authenticate(['google'], { scope: ['email', 'profile'] }),
-  authController.passportLogin
+  passport.authenticate(['google'], { scope: ['email', 'profile'] })
 );
 
 router.get(
