@@ -16,6 +16,7 @@ import userRoute from './api/routes/user.route';
 import productRoute from './api/routes/product.route';
 import searchRoute from './api/routes/search.route';
 import cartRoute from './api/routes/cart.route';
+import cookieParser from 'cookie-parser';
 
 require('./api/helpers/passport');
 
@@ -48,6 +49,7 @@ app.use(
     //exposedHeaders: ['set-cookie'],
   })
 );
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(logger('dev'));
 app.use(express.json());
@@ -68,7 +70,7 @@ app.use('*', error404);
 
 // database connection
 db();
-const ip = '192.168.130.155';
+// const ip = '192.168.130.155';
 app.listen(
   config.port as unknown as number,
   //  ip,

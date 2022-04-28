@@ -74,7 +74,7 @@ const verifyCallBackJwt: VerifyCallback = function (payload, done) {
     if (err) {
       return done(err, false);
     }
-    if (user /*&& user.role == 'seller'*/) {
+    if (user && user.role == 'buyer') {
       done(null, user);
     } else {
       done(null, false);
@@ -109,8 +109,8 @@ const fbVerifyFunction: FacebookVerifyFunction = function (
           if (user.avatar?.url) {
             return done(null, user); // user found, return that user
           } else {
-            user.avatar!.key = undefined;
-            user.avatar!.url = util.format(
+            user.avatar.key = undefined;
+            user.avatar.url = util.format(
               'http://graph.facebook.com/%s/picture?type=large',
               profile.id
             );
@@ -183,7 +183,7 @@ const googleStrategy = new GoogleStrategy(
           newUser.services.google.token = accessToken;
           newUser.fullname = `${profile.name?.familyName} ${profile.name?.givenName}`;
           newUser.email = <string>profile._json.email;
-          newUser.avatar!.url = <string>profile._json.picture;
+          newUser.avatar.url = <string>profile._json.picture;
           newUser.password = helper.generateToken().slice(0, 9);
 
           // save our user to the database
