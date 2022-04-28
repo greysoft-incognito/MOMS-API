@@ -25,13 +25,15 @@ router.post(
 );
 router.get(
   '/facebook',
-  passport.authenticate(['facebook'], { scope: ['email', 'profile'] }),
-  authController.passportSaveHost
+  authController.passportSaveHost,
+  passport.authenticate(['facebook'], { scope: ['email', 'profile'] })
 );
 
 router.get(
   '/auth/facebook/redirect',
-  passport.authenticate(['facebook']),
+  passport.authenticate(['facebook'], {
+    failureMessage: 'login failed',
+  }),
   authController.passportLogin
 );
 
@@ -45,7 +47,6 @@ router.get(
   '/google/redirect',
   passport.authenticate(['google'], {
     failureMessage: 'login failed',
-    //successRedirect: '/docs',
   }),
   authController.passportLogin
 );
