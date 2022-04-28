@@ -71,11 +71,12 @@ export default {
     console.log(req.session.host);
     if (req.session.host) {
       res.redirect(req.session.host);
+    } else {
+      SuccessResponse.send(res, {
+        success: true,
+        message: 'user logged in successfully',
+      });
     }
-    SuccessResponse.send(res, {
-      success: true,
-      message: 'user logged in successfully',
-    });
   },
   passportSaveHost: (req: Request, res: Response, next: NextFunction) => {
     req.session.host = <string>req.query?.host;

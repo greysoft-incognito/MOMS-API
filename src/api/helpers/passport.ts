@@ -74,7 +74,7 @@ const verifyCallBackJwt: VerifyCallback = function (payload, done) {
     if (err) {
       return done(err, false);
     }
-    if (user && user.role == 'seller') {
+    if (user /*&& user.role == 'seller'*/) {
       done(null, user);
     } else {
       done(null, false);

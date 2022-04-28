@@ -34,6 +34,7 @@ const Session: session.SessionOptions = {
   cookie: {
     // path: '/',
     // httpOnly: true,
+    sameSite: 'none',
     secure: false,
     maxAge: undefined, //1000 * 60 * 60 * 24,
   },
@@ -43,7 +44,8 @@ const Session: session.SessionOptions = {
 app.use(
   cors({
     credentials: true,
-    origin: ['http://localhost:8080'],
+    origin: ['http://localhost:8080', 'http://192.168.130.74:8080'],
+    //exposedHeaders: ['set-cookie'],
   })
 );
 app.use(express.urlencoded({ extended: true }));
@@ -66,7 +68,11 @@ app.use('*', error404);
 
 // database connection
 db();
-
-app.listen(config.port, () => {
-  console.log(`running on port ${config.port}`);
-});
+const ip = '192.168.130.155';
+app.listen(
+  config.port as unknown as number,
+  //  ip,
+  () => {
+    console.log(`running on port ${config.port}`);
+  }
+);
