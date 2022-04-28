@@ -37,13 +37,16 @@ router.get(
 
 router.get(
   '/google',
-  passport.authenticate(['google'], { scope: ['email', 'profile'] }),
-  authController.passportSaveHost
+  authController.passportSaveHost,
+  passport.authenticate(['google'], { scope: ['email', 'profile'] })
 );
 
 router.get(
   '/google/redirect',
-  passport.authenticate(['google']),
+  passport.authenticate(['google'], {
+    failureMessage: 'login failed',
+    //successRedirect: '/docs',
+  }),
   authController.passportLogin
 );
 

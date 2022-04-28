@@ -189,9 +189,8 @@ const googleStrategy = new GoogleStrategy(
           // save our user to the database
           newUser.save(function (err, new_user) {
             if (err) return done(err);
-
             // if successful, return the new user
-            return done(null, new_user);
+            else return done(null, new_user);
           });
         }
       }

@@ -67,24 +67,19 @@ export default {
       next(error);
     }
   },
-  passportLogin: (req: Request, res: Response, next: NextFunction) => {
-    if (req.user) {
-      if (req.session.host) {
-        res.redirect(req.session.host);
-      }
-      SuccessResponse.send(res, {
-        success: true,
-        message: 'user logged in successfully',
-      });
+  passportLogin: (req: Request, res: Response) => {
+    console.log(req.session.host);
+    if (req.session.host) {
+      res.redirect(req.session.host);
     }
-    next(new ErrorResponse('incorrect details', 401));
+    SuccessResponse.send(res, {
+      success: true,
+      message: 'user logged in successfully',
+    });
   },
   passportSaveHost: (req: Request, res: Response, next: NextFunction) => {
-    if (req.user) {
-      req.session.host = <string>req.query?.host;
-      res.end();
-    }
-    next(new ErrorResponse('incorrect details', 401));
+    req.session.host = <string>req.query?.host;
+    next();
   },
 
   logout: (req: Request, res: Response /*, next: NextFunction*/) => {
