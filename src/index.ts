@@ -40,7 +40,12 @@ const Session: session.SessionOptions = {
 };
 
 //middlewares
-app.use(cors());
+app.use(
+  cors({
+    credentials: true,
+    origin: '*',
+  })
+);
 app.use(express.urlencoded({ extended: true }));
 app.use(logger('dev'));
 app.use(express.json());
