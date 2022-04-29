@@ -70,11 +70,11 @@ const options: StrategyOptions = {
 };
 
 const verifyCallBackJwt: VerifyCallback = function (payload, done) {
-  User.findOne({ _id: payload.sub }).exec(function (err, user) {
+  User.findOne({ _id: payload.id }).exec(function (err, user) {
     if (err) {
       return done(err, false);
     }
-    if (user && user.role == 'buyer') {
+    if (user && user.role == 'seller') {
       done(null, user);
     } else {
       done(null, false);

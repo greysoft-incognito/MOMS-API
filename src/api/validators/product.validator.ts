@@ -7,21 +7,19 @@ export default {
     check('quantity').exists().isInt().toInt(),
     check('category').exists().isString().trim(),
     check('subcategory').exists().isString().trim(),
-    check('img')
-      .exists()
-      .custom(function (value, { req }) {
-        const extension = path.extname(req.files[0].originalname).toLowerCase();
-        switch (extension) {
-          case '.jpg':
-            return '.jpg';
-          case '.jpeg':
-            return '.jpeg';
-          case '.png':
-            return '.png';
-          default:
-            return false;
-        }
-      }),
+    check('img').custom(function (value, { req }) {
+      const extension = path.extname(req.files[0].originalname).toLowerCase();
+      switch (extension) {
+        case '.jpg':
+          return '.jpg';
+        case '.jpeg':
+          return '.jpeg';
+        case '.png':
+          return '.png';
+        default:
+          return false;
+      }
+    }),
     check('color').optional().isString().trim(),
     check('size').optional().isInt().trim(),
   ],
@@ -36,21 +34,19 @@ export default {
   ],
   updateImg: [
     check('oldImgKey').exists().isString().trim(),
-    check('img')
-      .exists()
-      .custom(function (value, { req }) {
-        const extension = path.extname(req.files[0].originalname).toLowerCase();
-        switch (extension) {
-          case '.jpg':
-            return '.jpg';
-          case '.jpeg':
-            return '.jpeg';
-          case '.png':
-            return '.png';
-          default:
-            return false;
-        }
-      }),
+    check('img').custom(function (value, { req }) {
+      const extension = path.extname(req.files[0].originalname).toLowerCase();
+      switch (extension) {
+        case '.jpg':
+          return '.jpg';
+        case '.jpeg':
+          return '.jpeg';
+        case '.png':
+          return '.png';
+        default:
+          return false;
+      }
+    }),
   ],
   productId: [param('productId').exists()],
   getPrducts: [

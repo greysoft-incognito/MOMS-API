@@ -19,7 +19,7 @@ const storage = multerS3({
   s3,
   bucket,
   contentType: multerS3.AUTO_CONTENT_TYPE,
-  acl: 'public-read',
+  // acl: 'public-read',
   metadata: function (req: Express.Request, file: Express.Multer.File, cb) {
     cb(null, { fieldName: file.fieldname });
   },

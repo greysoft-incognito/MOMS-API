@@ -11,19 +11,24 @@ export default {
   createProduct: async (req: Request, res: Response, next: NextFunction) => {
     try {
       if (!req.files) throw new Error(constants.MESSAGES.INTERNAL_SERVER_ERROR);
-      let img!: [
-        {
-          key: string;
-          url: string;
-        }
-      ];
       const files = <Express.MulterS3.File[]>req.files;
-      files.map((val: Express.MulterS3.File) => {
+      const img: ProductInterface['img'] = [
+        {
+          key: files[0].key,
+          url: files[0].location,
+        },
+      ];
+
+      files.map((val: Express.MulterS3.File, index: number) => {
+        if (index == 0) {
+          return;
+        }
         img.push({
           key: val.key,
           url: val.location,
         });
       });
+      if (!img) throw new Error(constants.MESSAGES.INTERNAL_SERVER_ERROR);
       const user = <UserInterface>req.user;
       const id = <string>user._id;
       const product: Partial<ProductInterface> = {
@@ -39,7 +44,9 @@ export default {
         },
         seller: new mongoose.Types.ObjectId(id),
       };
-      productService.seller.createProduct(product);
+
+      const result = await productService.seller.createProduct(product);
+      SuccessResponse.send(res, result);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       next(error);
@@ -55,10 +62,12 @@ export default {
         }
       }
 
-      productService.seller.updateProduct(
+      const result = await productService.seller.updateProduct(
         productId,
         data as Partial<ProductInterface>
       );
+      SuccessResponse.send(res, result);
+
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       next(error);

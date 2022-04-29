@@ -24,15 +24,15 @@ export default {
       data: Partial<ProductInterface>
     ) => {
       try {
-        let result;
         const product = await Product.findById(productId);
-        if (product) {
-          const arr = Object.keys(data);
-          arr.map((val) => {
-            product[val] = data[val];
-          }); // compare and merge objects if keys are equal
-          result = await product.save();
+        if (!product) {
+          throw new ErrorResponse('product does not exist', 400);
         }
+        const arr = Object.keys(data);
+        arr.map((val) => {
+          product[val] = data[val];
+        }); // compare and merge objects if keys are equal
+        const result = await product.save();
         return result;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
