@@ -61,17 +61,16 @@ export default {
           ? delete data[key]
           : key == 'size' || key == 'color'
           ? !data.desc
-            ? (data.desc = { [key]: data[key] } && delete data[key])
-            : Object.assign(data.desc, { [key]: data[key] }) && delete data[key]
+            ? (data.desc = { [key]: data[key] })
+            : Object.assign(data.desc, { [key]: data[key] })
           : key == 'category'
-          ? (data.categories = data[key] && delete data[key])
+          ? (data.categories = data[key])
           : key == 'subcategory'
-          ? (data.subcategories = data[key] && delete data[key])
+          ? (data.subcategories = data[key])
           : key == 'quantity'
-          ? (data.qtyInStore = data[key] && delete data[key])
+          ? (data.qtyInStore = data[key])
           : false;
       }
-      console.log(data);
       const result = await productService.seller.updateProduct(
         productId,
         data as Partial<ProductInterface>
