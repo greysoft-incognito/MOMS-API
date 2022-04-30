@@ -57,22 +57,19 @@ export default {
       const data = req.body;
       const productId = req.params.productId;
       for (const [key, value] of Object.entries(data)) {
-        if (!value) {
-          delete data[key];
-        } else if (key == 'size' || key == 'color') {
-          Object.assign(data.desc, { [key]: data[key] });
-          //data.desc[key] = data[key]; // {[key]: data[key]};
-          delete data[key];
-        } else if (key == 'category') {
-          data.categories = data[key];
-          delete data[key];
-        } else if (key == 'subcategory') {
-          data.subcategories = data[key];
-          delete data[key];
-        } else if (key == 'quantity') {
-          data.qtyInStore = data[key];
-          delete data[key];
-        }
+        !value
+          ? delete data[key]
+          : key == 'size' || key == 'color'
+          ? !data.desc
+            ? (data.desc = { [key]: data[key] } && delete data[key])
+            : Object.assign(data.desc, { [key]: data[key] }) && delete data[key]
+          : key == 'category'
+          ? (data.categories = data[key] && delete data[key])
+          : key == 'subcategory'
+          ? (data.subcategories = data[key] && delete data[key])
+          : key == 'quantity'
+          ? (data.qtyInStore = data[key] && delete data[key])
+          : false;
       }
 
       const result = await productService.seller.updateProduct(

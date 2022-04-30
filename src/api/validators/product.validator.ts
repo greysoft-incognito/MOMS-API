@@ -25,8 +25,8 @@ export default {
   ],
   update: [
     param('productId').exists().isString().trim(),
-    body('price').exists().isInt(),
-    body('quantity').exists().isInt(),
+    body('price').optional().isInt(),
+    body('quantity').optional().isInt(),
     body('category').optional().isString().trim(),
     body('subcategory').optional(),
     body('color').optional(),

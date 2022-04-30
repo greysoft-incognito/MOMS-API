@@ -135,6 +135,8 @@ const fbVerifyFunction: FacebookVerifyFunction = function (
             'http://graph.facebook.com/%s/picture?type=large',
             profile.id
           );
+          newUser.role = 'buyer';
+
           // new_user.new = true;
           // save our user to the database
           newUser.save(function (err) {
@@ -185,6 +187,7 @@ const googleStrategy = new GoogleStrategy(
           newUser.email = <string>profile._json.email;
           newUser.avatar.url = <string>profile._json.picture;
           newUser.password = helper.generateToken().slice(0, 9);
+          newUser.role = 'buyer';
 
           // save our user to the database
           newUser.save(function (err, new_user) {
