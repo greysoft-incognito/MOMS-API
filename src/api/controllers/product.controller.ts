@@ -60,7 +60,7 @@ export default {
         !value
           ? delete data[key]
           : key == 'size' || key == 'color'
-          ? !data.desc
+          ? data.desc == undefined
             ? (data.desc = { [key]: data[key] } && delete data[key])
             : Object.assign(data.desc, { [key]: data[key] }) && delete data[key]
           : key == 'category'

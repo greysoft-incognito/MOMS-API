@@ -9,6 +9,7 @@ export default {
     check('subcategory').exists().isString().trim(),
     check('img').custom(function (value, { req }) {
       const extension = path.extname(req.files[0].originalname).toLowerCase();
+      console.log(req.files);
       switch (extension) {
         case '.jpg':
           return '.jpg';
