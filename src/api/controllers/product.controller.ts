@@ -60,7 +60,7 @@ export default {
         !value
           ? delete data[key]
           : key == 'size' || key == 'color'
-          ? data.desc == undefined
+          ? !data.desc
             ? (data.desc = { [key]: data[key] } && delete data[key])
             : Object.assign(data.desc, { [key]: data[key] }) && delete data[key]
           : key == 'category'
@@ -71,7 +71,7 @@ export default {
           ? (data.qtyInStore = data[key] && delete data[key])
           : false;
       }
-
+      console.log(data);
       const result = await productService.seller.updateProduct(
         productId,
         data as Partial<ProductInterface>

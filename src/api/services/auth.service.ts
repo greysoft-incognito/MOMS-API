@@ -52,8 +52,7 @@ export default {
           url: data.password,
         };
         const email = new Emailing(mail);
-        const mailing = await email.newPassword(); //TODO
-        console.log(mailing);
+        await email.newPassword(); //TODO
 
         const result = await User.create(data);
         return { result, message: constants.MESSAGES.NEW_PASSWORD };

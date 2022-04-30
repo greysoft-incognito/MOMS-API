@@ -21,7 +21,6 @@ export default {
       });
       SuccessResponse.send(res, result);
     } catch (error) {
-      console.log(error);
       next(error);
     }
   },
@@ -68,7 +67,6 @@ export default {
     }
   },
   passportLogin: (req: Request, res: Response) => {
-    console.log(req.session.host);
     if (req.session.host) {
       res.redirect(req.session.host);
     } else {
