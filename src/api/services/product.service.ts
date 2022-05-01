@@ -45,8 +45,9 @@ export default {
         if (!product) throw new ErrorResponse('product dose not exist', 400);
         const arr = product.img;
         const index = arr.findIndex((val) => {
-          val.key === oldKey;
+          return val.key === oldKey;
         });
+
         if (index === -1) throw new ErrorResponse('image not found', 400);
         product.img.splice(index, 1, img);
         const result = await product.save();
@@ -68,10 +69,12 @@ export default {
     },
     getProducts: async (query: object, userId: string, page: number) => {
       try {
-        const result = helper.paginate(Product, page, [
-          ...Object.entries(query),
-          { _id: userId },
-        ]);
+        const result = helper.paginate(
+          Product,
+          page,
+          [...Object.entries(query), { seller: userId }],
+          { seller: userId }
+        );
         return result;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {

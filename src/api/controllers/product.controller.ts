@@ -6,6 +6,7 @@ import mongoose from 'mongoose';
 import { deleteUpload } from '../middlewares/s3';
 import { SuccessResponse } from '../helpers/response';
 import { UserInterface } from '../interfaces/User.Interface';
+import { safeQuery } from '../interfaces/Order.interface';
 
 export default {
   createProduct: async (req: Request, res: Response, next: NextFunction) => {
@@ -61,14 +62,14 @@ export default {
           ? delete data[key]
           : key == 'size' || key == 'color'
           ? !data.desc
-            ? (data.desc = { [key]: data[key] })
-            : Object.assign(data.desc, { [key]: data[key] })
+            ? ((data.desc = { [key]: data[key] }), delete data[key])
+            : (Object.assign(data.desc, { [key]: data[key] }), delete data[key])
           : key == 'category'
-          ? (data.categories = data[key])
+          ? ((data.categories = data[key]), delete data[key])
           : key == 'subcategory'
-          ? (data.subcategories = data[key])
+          ? ((data.subcategories = data[key]), delete data[key])
           : key == 'quantity'
-          ? (data.qtyInStore = data[key])
+          ? ((data.qtyInStore = data[key]), delete data[key])
           : false;
       }
       const result = await productService.seller.updateProduct(
@@ -114,7 +115,8 @@ export default {
   getProducts: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const page = req.query.page as unknown as number;
-      const query = req.query ? req.query : {};
+      // const query = req.query ? req.query : {};
+      const query = req.query ? safeQuery(req) : {};
       delete query.page;
       const user = <UserInterface>req.user;
       const id = <string>user._id;

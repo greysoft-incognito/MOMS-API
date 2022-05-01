@@ -12,19 +12,22 @@ export default {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     model: any, //Model<ProductInterface | OrderInterface | UserInterface>,
     page: number,
-    query: object[]
+    query: object[],
+    id?: object
   ) => {
     try {
+      id = !id ? {} : id;
       const limit = 10; //TODO
       const startIndex = limit * (page - 1);
-      const totalDocs = await model.countDocuments().exec();
+      const totalDocs = await model.countDocuments(id).exec();
       const totalPages = Math.floor(totalDocs / limit) + 1;
       const docs = await model
         .find()
-        .and([query])
+        .and(query)
         .sort({ createdAt: -1 })
         .skip(startIndex)
         .limit(limit);
+
       const result = {
         docs,
         limit,
