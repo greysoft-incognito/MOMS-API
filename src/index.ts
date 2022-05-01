@@ -35,7 +35,7 @@ const Session: session.SessionOptions = {
   cookie: {
     // path: '/',
     // httpOnly: true,
-    sameSite: 'none',
+    sameSite: 'lax',
     secure: false,
     maxAge: undefined, //1000 * 60 * 60 * 24,
   },
