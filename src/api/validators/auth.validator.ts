@@ -65,4 +65,5 @@ export default {
       }
     }),
   ],
+  h: [check('h').isString()],
 };

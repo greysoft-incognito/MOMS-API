@@ -21,8 +21,11 @@ router.post(
     successMessage: 'user logged in successfully',
   }*/
   ),
-  authController.passportLogin
+  authController.login2
 );
+
+router.get('/login3', authValidator.h, authController.login2);
+
 router.get(
   '/facebook',
   authController.passportSaveHost,

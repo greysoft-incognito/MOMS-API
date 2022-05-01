@@ -1,6 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import { SuccessResponse } from '../helpers/response';
 import authService from '../services/auth.service';
+import jwt from 'jsonwebtoken';
+import config from '../../config/config';
 
 export default {
   login: async (req: Request, res: Response, next: NextFunction) => {
@@ -68,25 +70,32 @@ export default {
   },
   passportLogin: (req: Request, res: Response) => {
     if (req.session.host) {
-      console.log(req.headers.cookie);
-      let cookie = req.headers.cookie?.split('=');
-      cookie ? false : (cookie = ['', '']);
-
-      // res
-      //   .cookie(cookie[0], cookie[1], {
-      //     // path: '/',
-      //     // httpOnly: true,
-      //     sameSite: 'none',
-      //     secure: false,
-      //     maxAge: 1000 * 60 * 60 * 24,
-      //   })
-      res.redirect(`${req.session.host}?cookie=${cookie[1]}`);
+      const user = req.user;
+      const pass = req.session.passport;
+      const userJwt = jwt.sign(
+        JSON.stringify({ pass, user }),
+        <string>config.jwt.secret,
+        { expiresIn: '60' }
+      );
+      res.redirect(`${req.session.host}?h=${userJwt}`);
     } else {
       SuccessResponse.send(res, {
         success: true,
         message: 'user logged in successfully',
       });
     }
+  },
+
+  login2: (req: Request, res: Response) => {
+    if (!req.user) {
+      const userJwt = <string>req.query.h;
+      const _payload = jwt.verify(userJwt, <string>config.jwt.secret);
+      const payload = JSON.parse(<string>_payload);
+      req.session.passport = payload.pass;
+      req.user = payload.user;
+      SuccessResponse.send(res, { user: payload.user });
+    }
+    SuccessResponse.send(res, { user: req.user });
   },
   passportSaveHost: (req: Request, res: Response, next: NextFunction) => {
     req.session.host = <string>req.query?.host;
