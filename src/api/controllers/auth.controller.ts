@@ -72,15 +72,15 @@ export default {
       let cookie = req.headers.cookie?.split('=');
       cookie ? false : (cookie = ['', '']);
 
-      res
-        .cookie(cookie[0], cookie[1], {
-          // path: '/',
-          // httpOnly: true,
-          sameSite: 'none',
-          secure: false,
-          maxAge: 1000 * 60 * 60 * 24,
-        })
-        .redirect(req.session.host);
+      // res
+      //   .cookie(cookie[0], cookie[1], {
+      //     // path: '/',
+      //     // httpOnly: true,
+      //     sameSite: 'none',
+      //     secure: false,
+      //     maxAge: 1000 * 60 * 60 * 24,
+      //   })
+      res.redirect(`${req.session.host}?cookie=${cookie[1]}`);
     } else {
       SuccessResponse.send(res, {
         success: true,
