@@ -75,7 +75,7 @@ export default {
       const userJwt = jwt.sign(
         JSON.stringify({ pass, user }),
         <string>config.jwt.secret,
-        { expiresIn: '60' }
+        { expiresIn: <string>config.jwt.timeout }
       );
       res.redirect(`${req.session.host}?h=${userJwt}`);
     } else {
@@ -85,7 +85,6 @@ export default {
       });
     }
   },
-
   login2: (req: Request, res: Response) => {
     if (!req.user) {
       const userJwt = <string>req.query.h;
@@ -107,6 +106,6 @@ export default {
     // req.session.destroy((err) => {
     //   if (err) next(err);
     // });
-    SuccessResponse.send(res, { message: 'successfully logged out' });
+    SuccessResponse.send(res, { message: 'successfully logged out ' });
   },
 };
