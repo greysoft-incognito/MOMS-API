@@ -74,8 +74,8 @@ export default {
       const pass = req.session.passport;
       const userJwt = jwt.sign(
         JSON.stringify({ pass, user }),
-        <string>config.jwt.secret,
-        { expiresIn: <string>config.jwt.timeout }
+        <string>config.jwt.secret
+        // { expiresIn: <string>config.jwt.timeout }
       );
       res.redirect(`${req.session.host}?h=${userJwt}`);
     } else {
