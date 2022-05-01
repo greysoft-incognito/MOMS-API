@@ -78,7 +78,7 @@ export default {
           // httpOnly: true,
           sameSite: 'none',
           secure: true,
-          maxAge: undefined, //1000 * 60 * 60 * 24,
+          maxAge: 1000 * 60 * 60 * 24,
         })
         .redirect(req.session.host);
     } else {
