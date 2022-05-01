@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { ErrorResponse, SuccessResponse } from '../helpers/response';
+import { SuccessResponse } from '../helpers/response';
 import authService from '../services/auth.service';
 
 export default {
@@ -77,7 +77,7 @@ export default {
           // path: '/',
           // httpOnly: true,
           sameSite: 'none',
-          secure: true,
+          secure: false,
           maxAge: 1000 * 60 * 60 * 24,
         })
         .redirect(req.session.host);
