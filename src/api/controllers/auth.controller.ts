@@ -68,7 +68,19 @@ export default {
   },
   passportLogin: (req: Request, res: Response) => {
     if (req.session.host) {
-      res.redirect(req.session.host);
+      console.log(req.headers.cookie);
+      let cookie = req.headers.cookie?.split('=');
+      cookie ? false : (cookie = ['', '']);
+
+      res
+        .cookie(cookie[0], cookie[1], {
+          // path: '/',
+          // httpOnly: true,
+          sameSite: 'none',
+          secure: true,
+          maxAge: undefined, //1000 * 60 * 60 * 24,
+        })
+        .redirect(req.session.host);
     } else {
       SuccessResponse.send(res, {
         success: true,
