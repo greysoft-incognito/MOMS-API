@@ -73,7 +73,7 @@ export default {
       const user = req.user;
       const pass = req.session.passport;
       const userJwt = jwt.sign(
-        JSON.stringify({ pass, user }),
+        { pass, user },
         <string>config.jwt.secret
         // { expiresIn: <string>config.jwt.timeout }
       );
@@ -88,13 +88,15 @@ export default {
   login2: (req: Request, res: Response) => {
     if (!req.user) {
       const userJwt = <string>req.query.h;
-      const _payload = jwt.verify(userJwt, <string>config.jwt.secret);
-      const payload = JSON.parse(<string>_payload);
+      console.log(userJwt);
+
+      const pay = jwt.verify(userJwt, <string>config.jwt.secret);
+      const payload = pay as unknown as any;
+
       req.session.passport = payload.pass;
       req.user = payload.user;
       SuccessResponse.send(res, { user: payload.user });
-    }
-    SuccessResponse.send(res, { user: req.user });
+    } else SuccessResponse.send(res, { user: req.user });
   },
   passportSaveHost: (req: Request, res: Response, next: NextFunction) => {
     req.session.host = <string>req.query?.host;
