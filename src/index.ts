@@ -36,7 +36,7 @@ const Session: session.SessionOptions = {
     // path: '/',
     // httpOnly: true,
     sameSite: 'none',
-    secure: true,
+    secure: false,
     maxAge: undefined, //1000 * 60 * 60 * 24,
   },
 };
