@@ -1,6 +1,6 @@
 import mongoose, { Document } from 'mongoose';
 
-interface UserInterface extends Document {
+export interface UserInterface extends Document {
   email: string;
   fullname: string;
   password: string;
@@ -27,4 +27,6 @@ interface UserInterface extends Document {
   getSignedToken(): string;
 }
 
-export { UserInterface };
+export type UserPassport = {
+  user: mongoose.Types.ObjectId;
+};

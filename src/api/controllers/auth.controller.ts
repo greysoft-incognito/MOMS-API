@@ -1,8 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
-import { SuccessResponse } from '../helpers/response';
+import { ErrorResponse, SuccessResponse } from '../helpers/response';
 import authService from '../services/auth.service';
 import jwt from 'jsonwebtoken';
 import config from '../../config/config';
+import { UserInterface, UserPassport } from '../interfaces/User.Interface';
+import helper from '../helpers/helper';
 
 export default {
   login: async (req: Request, res: Response, next: NextFunction) => {
@@ -68,15 +70,20 @@ export default {
       next(error);
     }
   },
+  passportSaveHost: (req: Request, res: Response, next: NextFunction) => {
+    req.session.key = helper.generateToken();
+    req.session.host = <string>req.query?.host;
+    next();
+  },
+
   passportLogin: (req: Request, res: Response) => {
     if (req.session.host) {
       const user = req.user;
       const pass = req.session.passport;
-      const userJwt = jwt.sign(
-        { pass, user },
-        <string>config.jwt.secret
-        // { expiresIn: <string>config.jwt.timeout }
-      );
+      const key = req.session.key ? req.session.key : '';
+      const userJwt = jwt.sign({ pass, user, key }, <string>config.jwt.secret, {
+        expiresIn: 60,
+      });
       res.redirect(`${req.session.host}?h=${userJwt}`);
     } else {
       SuccessResponse.send(res, {
@@ -91,16 +98,18 @@ export default {
       console.log(userJwt);
 
       const pay = jwt.verify(userJwt, <string>config.jwt.secret);
-      const payload = pay as unknown as any;
+      const payload = pay as unknown as {
+        user: UserInterface;
+        pass: UserPassport;
+        key: string;
+      };
 
       req.session.passport = payload.pass;
       req.user = payload.user;
+      // const key = payload.key;
+      // if (key !== req.session.key) throw new ErrorResponse('invalid user', 400); //TODO
       SuccessResponse.send(res, { user: payload.user });
     } else SuccessResponse.send(res, { user: req.user });
-  },
-  passportSaveHost: (req: Request, res: Response, next: NextFunction) => {
-    req.session.host = <string>req.query?.host;
-    next();
   },
 
   logout: (req: Request, res: Response /*, next: NextFunction*/) => {

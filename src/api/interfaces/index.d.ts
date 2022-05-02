@@ -6,7 +6,8 @@ declare module 'express-session' {
   interface SessionData {
     cart?: CartInterface[];
     host: string;
-    passport: any;
+    passport: UserPassport;
+    key: string;
   }
 }
 
