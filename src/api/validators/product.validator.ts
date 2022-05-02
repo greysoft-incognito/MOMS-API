@@ -7,22 +7,22 @@ export default {
     check('quantity').exists().isInt().toInt(),
     check('category').exists().isString().trim(),
     check('subcategory').exists().isString().trim(),
-    // check('img').custom(function (value, { req }) {
-    //   console.log(req.files);
+    check('img').custom(function (value, { req }) {
+      console.log(req.body, req.files);
 
-    //   const extension = path.extname(req.files[0].originalname).toLowerCase();
-    //   switch (extension) {
-    //     case '.jpg':
-    //       return '.jpg';
-    //     case '.jpeg':
-    //       return '.jpeg';
-    //     case '.png':
-    //       return '.png';
-    //     default:
-    //       return false;
-    //   }
-    // }),
-    check('img').exists(),
+      const extension = path.extname(req.files[0].originalname).toLowerCase();
+      switch (extension) {
+        case '.jpg':
+          return '.jpg';
+        case '.jpeg':
+          return '.jpeg';
+        case '.png':
+          return '.png';
+        default:
+          return false;
+      }
+    }),
+    // check('img').exists(),
     check('color').optional().isString().trim(),
     check('size').optional().isInt().trim(),
   ],
