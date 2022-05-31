@@ -127,6 +127,19 @@ export default {
       next(error);
     }
   },
+  search: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const page = req.query.page as unknown as number;
+      // const query = req.query ? req.query : {};
+      const query = req.query ? safeQuery(req) : {};
+      delete query.page;
+      const result = await productService.seller.search(query, page);
+      SuccessResponse.send(res, result);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      next(error);
+    }
+  },
   getOneProduct: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const productId = req.params.productId;

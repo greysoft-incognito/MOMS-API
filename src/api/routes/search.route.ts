@@ -9,7 +9,7 @@ router.get(
   '/',
   productValidator.getPrducts,
   validator,
-  productController.getProducts
+  productController.search
 );
 
 export default router;

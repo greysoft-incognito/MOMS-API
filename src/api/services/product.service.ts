@@ -81,6 +81,17 @@ export default {
         throw new Error(error);
       }
     },
+    search: async (query: object, page: number) => {
+      try {
+        const result = helper.paginate(Product, page, [
+          ...Object.entries(query),
+        ]);
+        return result;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (error: any) {
+        throw new Error(error);
+      }
+    },
     getOneProduct: async (productId: string) => {
       try {
         const result = await Product.findById(productId);
