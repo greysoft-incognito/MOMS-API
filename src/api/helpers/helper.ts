@@ -41,4 +41,33 @@ export default {
       throw new Error(error);
     }
   },
+  paginateWithoutQuery: async (
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    model: any, //Model<ProductInterface | OrderInterface | UserInterface>,
+    page: number
+  ) => {
+    try {
+      const limit = 10; //TODO
+      const startIndex = limit * (page - 1);
+      const totalDocs = await model.countDocuments().exec();
+      const totalPages = Math.floor(totalDocs / limit) + 1;
+      const docs = await model
+        .find()
+        .sort({ createdAt: -1 })
+        .skip(startIndex)
+        .limit(limit);
+
+      const result = {
+        docs,
+        limit,
+        totalDocs,
+        page,
+        totalPages,
+      };
+      return result;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      throw new Error(error);
+    }
+  },
 };

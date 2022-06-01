@@ -83,9 +83,12 @@ export default {
     },
     search: async (query: object, page: number) => {
       try {
-        const result = helper.paginate(Product, page, [
-          ...Object.entries(query),
-        ]);
+        let result;
+        if (Object.entries(query).length < 1) {
+          result = helper.paginateWithoutQuery(Product, page);
+        } else {
+          result = helper.paginate(Product, page, [...Object.entries(query)]);
+        }
         return result;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
