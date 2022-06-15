@@ -129,9 +129,9 @@ export default {
   },
   search: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const page = req.query.page as unknown as number;
       // const query = req.query ? req.query : {};
       const query = req.query ? safeQuery(req) : {};
+      const page = query.page ? parseInt(query.page) : 1;
       delete query.page;
       const result = await productService.seller.search(query, page);
       SuccessResponse.send(res, result);

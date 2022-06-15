@@ -59,6 +59,6 @@ export default {
     query('subcategory').optional().isString(),
     query('color').optional().isString(),
     query('size').optional().isInt(),
-    query('page').exists().isInt(),
+    query('page').optional().isInt(),
   ],
 };

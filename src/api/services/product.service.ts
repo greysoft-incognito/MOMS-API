@@ -87,7 +87,7 @@ export default {
         if (Object.entries(query).length < 1) {
           result = helper.paginateWithoutQuery(Product, page);
         } else {
-          result = helper.paginate(Product, page, [...Object.entries(query)]);
+          result = helper.paginate(Product, page, query);
         }
         return result;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any

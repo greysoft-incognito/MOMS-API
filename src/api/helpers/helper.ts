@@ -12,7 +12,7 @@ export default {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     model: any, //Model<ProductInterface | OrderInterface | UserInterface>,
     page: number,
-    query: object[],
+    query: object,
     id?: object
   ) => {
     try {

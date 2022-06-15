@@ -12,4 +12,11 @@ router.get(
   productController.search
 );
 
+router.get(
+  '/productId',
+  productValidator.getPrducts,
+  validator,
+  productController.search
+);
+
 export default router;
