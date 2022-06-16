@@ -1,7 +1,9 @@
 import config from '../../config/config';
 import User from '../models/User.model';
+import Categories from '../models/Category.model';
+import categoryData from './category.data';
 
-export default async () => {
+export const UserSeeder = async () => {
   const defaultEmail: string = config.seeder.email as string;
   const defaultPassword: string = config.seeder.password as string;
 
@@ -20,6 +22,21 @@ export default async () => {
     } else {
       admin.password = defaultPassword;
       await admin.save();
+    }
+  } catch (error: any) {
+    throw new Error(error);
+  }
+};
+
+export const CategorySeeder = async () => {
+  try {
+    let cat = await Categories.findOne();
+
+    if (!cat) {
+      await Categories.create(categoryData);
+    } else {
+      cat = categoryData;
+      await cat.save();
     }
   } catch (error: any) {
     throw new Error(error);

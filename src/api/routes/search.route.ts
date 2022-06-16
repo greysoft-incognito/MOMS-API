@@ -12,11 +12,8 @@ router.get(
   productController.search
 );
 
-router.get(
-  '/productId',
-  productValidator.getPrducts,
-  validator,
-  productController.search
-);
+router.get('/productId', productController.getOneProduct);
+
+router.get('/categories', productController.getCategories);
 
 export default router;

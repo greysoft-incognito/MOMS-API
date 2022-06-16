@@ -7,6 +7,7 @@ import { deleteUpload } from '../middlewares/s3';
 import { SuccessResponse } from '../helpers/response';
 import { UserInterface } from '../interfaces/User.Interface';
 import { safeQuery } from '../interfaces/Order.interface';
+import categoryService from '../services/category.service';
 
 export default {
   createProduct: async (req: Request, res: Response, next: NextFunction) => {
@@ -144,6 +145,15 @@ export default {
     try {
       const productId = req.params.productId;
       const result = await productService.seller.getOneProduct(productId);
+      SuccessResponse.send(res, result);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      next(error);
+    }
+  },
+  getCategories: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const result = await categoryService.get();
       SuccessResponse.send(res, result);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
