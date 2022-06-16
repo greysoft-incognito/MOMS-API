@@ -12,7 +12,7 @@ router.get(
   productController.search
 );
 
-router.get('/productId', productController.getOneProduct);
+router.get('/:productId', productController.getOneProduct);
 
 router.get('/categories', productController.getCategories);
 
