@@ -30,12 +30,12 @@ export const UserSeeder = async () => {
 
 export const CategorySeeder = async () => {
   try {
-    let cat = await Categories.findOne();
+    const cat = await Categories.findOne();
 
     if (!cat) {
       await Categories.create(categoryData);
     } else {
-      cat = categoryData;
+      cat.categories = categoryData.categories;
       await cat.save();
     }
   } catch (error: any) {
