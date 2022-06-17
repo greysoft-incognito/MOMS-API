@@ -15,6 +15,7 @@ import authRoute from './api/routes/auth.route';
 import userRoute from './api/routes/user.route';
 import productRoute from './api/routes/product.route';
 import searchRoute from './api/routes/search.route';
+import categoryRoute from './api/routes/categories.route';
 import cartRoute from './api/routes/cart.route';
 import cookieParser from 'cookie-parser';
 
@@ -64,6 +65,7 @@ app.use('/api/product', authMiddleware.sellerIsAuth, productRoute);
 app.use('/api/search', searchRoute);
 app.use('/api/me', authMiddleware.userIsAuth, userRoute);
 app.use('/api/cart', cartRoute);
+app.use('/api/shops', categoryRoute);
 
 app.use(errorHandler);
 app.use('*', error404);
