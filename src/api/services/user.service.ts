@@ -57,4 +57,26 @@ export default {
       throw new Error(error);
     }
   },
+  shops: async () => {
+    try {
+      const result = await User.find({ role: 'seller' });
+      if (!result) throw new ErrorResponse('user not found', 400);
+      return result;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      throw new Error(error);
+    }
+  },
+  shop: async (id: string) => {
+    try {
+      const result = await User.findById(id);
+      if (!result) throw new ErrorResponse('user not found', 400);
+      if (result.role === 'buyer')
+        throw new ErrorResponse('user not found', 400);
+      return result;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      throw new Error(error);
+    }
+  },
 };

@@ -60,4 +60,25 @@ export default {
       next(error);
     }
   },
+  shop: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const id = req.body.sellerId;
+      const result = await userService.shop(id);
+      SuccessResponse.send(res, result);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      next(error);
+    }
+  },
+  shops: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const user = <UserInterface>req.user;
+      const id = <string>user._id;
+      const result = await userService.shops();
+      SuccessResponse.send(res, result);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      next(error);
+    }
+  },
 };
