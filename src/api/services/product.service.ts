@@ -90,8 +90,23 @@ export default {
         let result;
         if (Object.entries(query).length < 1) {
           result = helper.paginateWithoutQuery(Product, page);
+        } else if (Object.entries(query).length == 1) {
+          if (Object.keys(query)[0] == 'price') {
+            result = await Product.find({
+              price: { $lte: Object.values(query)[0] },
+            });
+          } else {
+            const [key, value] = Object.entries(query)[0];
+            result = await Product.find({
+              [key]: { $regex: value, $options: 'i' },
+            });
+          }
         } else {
-          result = helper.paginate(Product, page, query);
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          const newQuery = Object.entries(query).filter(([key, val]) => {
+            return key !== 'price';
+          });
+          result = helper.paginate(Product, page, newQuery);
         }
         return result;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
