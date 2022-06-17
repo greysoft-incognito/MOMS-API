@@ -6,7 +6,7 @@ import authMiddleware from '../middlewares/auth.middleware';
 
 const router = Router();
 
-router.get('/categories', productController.getCategories);
+router.get('/categories/new', productController.getCategories);
 
 router.get(
   '/',
