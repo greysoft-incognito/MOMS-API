@@ -72,8 +72,6 @@ export default {
   },
   shops: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const user = <UserInterface>req.user;
-      const id = <string>user._id;
       const result = await userService.shops();
       SuccessResponse.send(res, result);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
