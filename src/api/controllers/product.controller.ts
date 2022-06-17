@@ -160,4 +160,33 @@ export default {
       next(error);
     }
   },
+  rating: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const productId = req.params.productId;
+      const rate = parseInt(req.body.rating);
+
+      const result = await productService.buyer.ratings(productId, rate);
+      SuccessResponse.send(res, result);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      next(error);
+    }
+  },
+  comment: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      if (!req.user?._id) throw new Error('invalid user');
+      const productId = req.params.productId;
+      const comment = req.body.comment;
+
+      const result = await productService.buyer.reviews(
+        productId,
+        comment,
+        req.user._id
+      );
+      SuccessResponse.send(res, result);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      next(error);
+    }
+  },
 };

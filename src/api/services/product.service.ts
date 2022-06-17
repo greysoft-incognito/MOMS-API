@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import Product from '../models/Product.model';
 import { ProductInterface } from '../interfaces/Product.interface';
 import helper from '../helpers/helper';
 import { ErrorResponse } from '../helpers/response';
+import mongoose from 'mongoose';
 
 type Image = {
   key: string;
@@ -116,18 +118,31 @@ export default {
         throw new Error(error);
       }
     },
-    ratings: async (query: object[], page: number) => {
+    ratings: async (id: string, rate: number) => {
       try {
-        const result = helper.paginate(Product, page, query);
+        const result = await Product.findById(id);
+        if (!result) throw new Error('invalid product');
+
+        result.ratings!.total.push(rate);
+        result.ratings!.stars =
+          result.ratings!.total.reduce((a, b) => a + b, 0) /
+          result.ratings!.total.length;
+        result.save();
         return result;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
         throw new Error(error);
       }
     },
-    reviews: async (query: object[], page: number) => {
+    reviews: async (id: string, comments: string, user: string) => {
       try {
-        const result = helper.paginate(Product, page, query);
+        const result = await Product.findById(id);
+        if (!result) throw new Error('invalid product');
+        result.reviews?.push({
+          user: new mongoose.Types.ObjectId(user),
+          comments,
+        });
+        result.save();
         return result;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {

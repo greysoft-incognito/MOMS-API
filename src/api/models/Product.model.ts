@@ -13,12 +13,18 @@ const productSchema: Schema = new Schema<ProductInterface>(
         url: { type: String },
       },
     ],
-    ratings: { type: Number, required: true, default: 0 },
+    ratings: {
+      stars: { type: Number, default: 0 },
+      total: [{ type: Number }],
+    },
     reviews: [
-      {
-        user: { type: Schema.Types.ObjectId, ref: 'User' },
-        comments: { type: String },
-      },
+      new Schema(
+        {
+          user: { type: Schema.Types.ObjectId, ref: 'User' },
+          comments: { type: String },
+        },
+        { timestamps: true }
+      ),
     ],
     categories: [{ type: String }],
     subCategories: [{ type: String }],

@@ -11,7 +11,7 @@ export interface ProductInterface extends Document {
       url: string;
     }
   ];
-  ratings?: number;
+  ratings?: { stars: number; total: number[] };
   reviews?: [
     {
       user: Types.ObjectId;
