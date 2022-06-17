@@ -9,8 +9,6 @@ const router = Router();
 
 router.get('/categories/new', productController.getCategories);
 
-router.get('/:productId', productController.getOneProduct);
-
 router.get('/shops', userController.shops);
 router.get('/shops/:sellerId', userController.shop);
 
@@ -28,6 +26,9 @@ router.post(
   validator,
   productController.comment
 );
+
+router.get('/:productId', productController.getOneProduct);
+
 router.get(
   '/',
   productValidator.getPrducts,
