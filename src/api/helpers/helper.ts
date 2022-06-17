@@ -70,4 +70,22 @@ export default {
       throw new Error(error);
     }
   },
+  parseData(data: any) {
+    for (const [key, value] of Object.entries(data)) {
+      !value
+        ? delete data[key]
+        : key == 'size' || key == 'color'
+        ? !data.desc
+          ? ((data.desc = { [key]: data[key] }), delete data[key])
+          : (Object.assign(data.desc, { [key]: data[key] }), delete data[key])
+        : key == 'category'
+        ? ((data.categories = data[key]), delete data[key])
+        : key == 'subcategory'
+        ? ((data.subcategories = data[key]), delete data[key])
+        : key == 'productName'
+        ? ((data.name = data[key]), delete data[key])
+        : false;
+    }
+    return data;
+  },
 };

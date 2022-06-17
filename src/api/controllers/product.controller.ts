@@ -8,6 +8,7 @@ import { SuccessResponse } from '../helpers/response';
 import { UserInterface } from '../interfaces/User.Interface';
 import { safeQuery } from '../interfaces/Order.interface';
 import categoryService from '../services/category.service';
+import helper from '../helpers/helper';
 
 export default {
   createProduct: async (req: Request, res: Response, next: NextFunction) => {
@@ -59,23 +60,9 @@ export default {
   },
   updateProduct: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const data = req.body;
+      let data = req.body;
       const productId = req.params.productId;
-      for (const [key, value] of Object.entries(data)) {
-        !value
-          ? delete data[key]
-          : key == 'size' || key == 'color'
-          ? !data.desc
-            ? ((data.desc = { [key]: data[key] }), delete data[key])
-            : (Object.assign(data.desc, { [key]: data[key] }), delete data[key])
-          : key == 'category'
-          ? ((data.categories = data[key]), delete data[key])
-          : key == 'subcategory'
-          ? ((data.subcategories = data[key]), delete data[key])
-          : key == 'quantity'
-          ? ((data.qtyInStore = data[key]), delete data[key])
-          : false;
-      }
+      data = helper.parseData(data);
       const result = await productService.seller.updateProduct(
         productId,
         data as Partial<ProductInterface>
@@ -134,7 +121,8 @@ export default {
   search: async (req: Request, res: Response, next: NextFunction) => {
     try {
       // const query = req.query ? req.query : {};
-      const query = req.query ? safeQuery(req) : {};
+      let query = req.query ? safeQuery(req) : {};
+      if (query !== {}) query = helper.parseData(query);
       const page = query.page ? parseInt(query.page) : 1;
       delete query.page;
       const result = await productService.seller.search(query, page);
