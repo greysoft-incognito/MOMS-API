@@ -9,8 +9,8 @@ const router = Router();
 
 router.get('/categories/new', productController.getCategories);
 
-router.get('/shops', userController.shops);
-router.get('/shops/:sellerId', userController.shop);
+router.get('/shops/all', userController.shops);
+router.get('/shops/one/:sellerId', userController.shop);
 
 router.put(
   '/:productId/rating',
