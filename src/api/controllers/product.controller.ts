@@ -47,7 +47,10 @@ export default {
         seller: new mongoose.Types.ObjectId(id),
       };
 
-      const result = await productService.seller.createProduct(product);
+      const result = await productService.seller.createProduct(
+        product,
+        user._id
+      );
       SuccessResponse.send(res, result);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {

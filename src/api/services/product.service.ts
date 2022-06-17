@@ -4,6 +4,7 @@ import { ProductInterface } from '../interfaces/Product.interface';
 import helper from '../helpers/helper';
 import { ErrorResponse } from '../helpers/response';
 import mongoose from 'mongoose';
+import User from '../models/User.model';
 
 type Image = {
   key: string;
@@ -11,10 +12,11 @@ type Image = {
 };
 export default {
   seller: {
-    createProduct: async (data: Partial<ProductInterface>) => {
+    createProduct: async (data: Partial<ProductInterface>, id: string) => {
       try {
         const product = new Product(data);
         const result = await product.save();
+        await User.findByIdAndUpdate(id, { $push: { store: result._id } });
         return result;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {

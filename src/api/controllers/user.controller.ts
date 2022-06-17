@@ -62,7 +62,7 @@ export default {
   },
   shop: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const id = req.body.sellerId;
+      const id = req.params.sellerId;
       const result = await userService.shop(id);
       SuccessResponse.send(res, result);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
