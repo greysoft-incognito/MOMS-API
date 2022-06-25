@@ -2,55 +2,55 @@ export default {
   categories: [
     {
       name: 'Clothes',
-      icon: 'fa-solid fa-clothes-hanger',
+      icon: 'https://img.icons8.com/material/24/undefined/hanger.png',
     },
     {
       name: 'Mobile Phones & Accesories',
-      icon: 'fa-solid fa-mobile-screen-button',
+      icon: 'https://img.icons8.com/material/24/undefined/iphone--v1.png',
     },
     {
       name: 'Headphones',
-      icon: 'fa-solid fa-headphones',
+      icon: 'https://img.icons8.com/material/24/undefined/headphones.png',
     },
     {
       name: 'Shoes & Footwears',
-      icon: 'fa-solid fa-boot',
+      icon: 'https://img.icons8.com/material/24/undefined/trainers.png',
     },
     {
       name: 'Laptops & Computers',
-      icon: 'fa-solid fa-computer',
+      icon: 'https://img.icons8.com/material/24/undefined/laptop--v1.png',
     },
     {
       name: 'Home Appliances',
-      icon: 'fa-solid fa-fan-table',
+      icon: 'https://img.icons8.com/material/24/undefined/fridge.png',
     },
     {
       name: 'Kitchen Utensils',
-      icon: 'fa-solid fa-kitchen-set',
+      icon: 'https://img.icons8.com/material/24/undefined/salad-bowl.png',
     },
     {
       name: 'Children wears',
-      icon: 'fa-solid fa-teddy-bear',
+      icon: 'https://img.icons8.com/material/24/undefined/children-faces.png',
     },
     {
       name: 'Electronics',
-      icon: 'fa-solid fa-plug-circle-bolt',
+      icon: 'https://img.icons8.com/material/24/undefined/electronics.png',
     },
     {
       name: 'Groceries',
-      icon: 'fa-solid fa-basket-shopping',
+      icon: 'https://img.icons8.com/material/24/undefined/favorite-cart.png',
     },
     {
       name: 'Books',
-      icon: 'fa-solid fa-book',
+      icon: 'https://img.icons8.com/material/24/undefined/open-book.png',
     },
     {
       name: 'Bags',
-      icon: 'fa-solid fa-backpack',
+      icon: 'https://img.icons8.com/material/24/undefined/bag-front-view.png',
     },
     {
       name: 'Beauty & Makeup',
-      icon: 'fa-solid fa-sushi-roll',
+      icon: 'https://img.icons8.com/material/24/undefined/cosmetic-brush.png',
     },
   ],
 };

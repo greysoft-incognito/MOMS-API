@@ -18,8 +18,11 @@ export interface OrderInterface extends Document {
   totalPrice: number;
   buyer: Types.ObjectId;
   seller: Types.ObjectId;
-  txn_id: number;
-  status: 'pending' | 'shipped' | 'recieved';
+  txn_id: string;
+  txn_ref: string;
+  txn_msg: string;
+  txn_status: string;
+  shipStatus: 'pending' | 'shipped' | 'recieved';
   discount: number;
   shippingAddress: string;
   tracking: {

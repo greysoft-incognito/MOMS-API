@@ -17,7 +17,7 @@ export default {
     try {
       const result = await Order.findByIdAndUpdate(
         orderId,
-        { status: data },
+        { shipStatus: data },
         { new: true }
       );
       if (!result) throw new ErrorResponse('order not found', 400);

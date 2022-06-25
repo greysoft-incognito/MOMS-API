@@ -15,8 +15,12 @@ const orderSchema: Schema = new Schema<OrderInterface>(
     totalPrice: { type: Number },
     buyer: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     seller: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-    txn_id: { type: Number, required: true },
-    status: {
+    txn_id: { type: String, required: true },
+    txn_ref: { type: String },
+    txn_msg: { type: String },
+    txn_status: { type: String },
+    shipStatus: {
+      type: String,
       enum: ['pending', 'shipped', 'recieved'],
       default: 'pending',
     },
@@ -32,5 +36,5 @@ const orderSchema: Schema = new Schema<OrderInterface>(
   }
 );
 
-const Order: Model<OrderInterface> = model('product', orderSchema);
+const Order: Model<OrderInterface> = model('order', orderSchema);
 export default Order;

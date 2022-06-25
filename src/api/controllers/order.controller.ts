@@ -26,9 +26,12 @@ export default {
           else return 0;
         })(),
         buyer: new Types.ObjectId(req.user._id),
-        seller: new Types.ObjectId(req.params.sellerId),
-        txn_id: req.body.transactionId,
-        status: 'pending',
+        seller: new Types.ObjectId(req.body.sellerId),
+        txn_id: req.body.txnId,
+        txn_ref: req.body.txnReference,
+        txn_msg: req.body.txnMessage,
+        txn_status: req.body.txnStatus,
+        shipStatus: 'pending',
         discount: req.body.discount ? req.body.discount : 0,
         shippingAddress: req.body.shippingAddress,
         tracking: {
