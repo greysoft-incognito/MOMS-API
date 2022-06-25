@@ -22,7 +22,35 @@ export interface UserInterface extends Document {
       token?: string;
     };
   };
-  store: [mongoose.Types.ObjectId];
+  store: {
+    name: string;
+    desc: string;
+    banner: {
+      key?: string;
+      url?: string;
+    };
+    products?: [mongoose.Types.ObjectId];
+
+    phone: number;
+    bankAccountNumber: string;
+    bankAccountName: string;
+    bankName: string;
+    [key: string]: any;
+  };
+  verification: {
+    bvn?: number;
+    nin?: number;
+    CACnumber?: string;
+    ninDocument?: {
+      key: string;
+      url: string;
+    };
+    CACdocument?: {
+      key: string;
+      url: string;
+    };
+  };
+
   comparePasswords(password: string): boolean;
   getSignedToken(): string;
 }

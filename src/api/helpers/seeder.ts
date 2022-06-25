@@ -34,10 +34,10 @@ export const CategorySeeder = async () => {
 
     if (!cat) {
       await Categories.create(categoryData);
-    } 
+    } else {
       cat.categories = categoryData.categories;
       await cat.save();
-    
+    }
   } catch (error: any) {
     throw new Error(error);
   }

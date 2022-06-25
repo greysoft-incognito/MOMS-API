@@ -36,6 +36,20 @@ const userSchema: Schema = new Schema<UserInterface>(
       key: { type: String },
       url: { type: String },
     },
+    verification: {
+      ninDocument: {
+        key: { type: String },
+        url: { type: String },
+      },
+      CACdocument: {
+        key: { type: String },
+        url: { type: String },
+      },
+      bvn: { type: String },
+      nin: { type: String },
+      CACnumber: { type: String },
+    },
+
     services: {
       google: {
         id: { type: String },
@@ -47,9 +61,20 @@ const userSchema: Schema = new Schema<UserInterface>(
       },
     },
     store: {
-      type: [Schema.Types.ObjectId],
+      banner: {
+        key: { type: String },
+        url: { type: String },
+      },
+      name: { type: String },
+      desc: { type: String },
+      phone: { type: Number },
+      bankAccountName: { type: String },
+      bankAccountNumber: { type: String },
+      bankName: { type: String },
+      products: [{ type: Schema.Types.ObjectId }],
     },
   },
+
   { timestamps: true }
 );
 
