@@ -121,7 +121,7 @@ export default {
       try {
         const result = await Product.findById(productId);
         if (!result) throw new ErrorResponse('product dose not exist', 400);
-        result.trendCount += 1;
+        result.trendCount ? (result.trendCount += 1) : (result.trendCount = 1);
         result.save();
         return result;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
