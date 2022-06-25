@@ -125,12 +125,13 @@ export default {
       data.desc = req.body.desc;
       data.phone = req.body.phone;
       data.name = req.body.name;
+      const newData = helper.parseData(data);
       if (req.file) {
         const file = <Express.MulterS3.File>req.file;
         data.banner = { key: file.key, url: file.location };
       }
 
-      const result = await userService.editShop(data, id);
+      const result = await userService.editShop(newData, id);
       SuccessResponse.send(res, result);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
