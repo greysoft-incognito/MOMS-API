@@ -56,7 +56,7 @@ export default {
       }),
   ],
   editShop: [
-    check('phone').exists().isInt().toInt(),
+    check('phone').optional().isInt().toInt(),
 
     check('name').optional().isString(),
     check('desc').optional().isString(),
