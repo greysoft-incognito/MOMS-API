@@ -16,7 +16,9 @@ export default {
       try {
         const product = new Product(data);
         const result = await product.save();
-        await User.findByIdAndUpdate(id, { $push: { store: result._id } });
+        await User.findByIdAndUpdate(id, {
+          $push: { 'store.products': result._id },
+        });
         return result;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
