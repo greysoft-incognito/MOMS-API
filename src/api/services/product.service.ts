@@ -95,6 +95,9 @@ export default {
             result = await Product.find({
               price: { $lte: Object.values(query)[0] },
             });
+          } else if (Object.keys(query)[0] == 'trending') {
+            result = await Product.find().sort({ trendCount: -1 });
+            result.splice(0, Object.values(query)[0]);
           } else {
             const [key, value] = Object.entries(query)[0];
             result = await Product.find({
@@ -118,6 +121,8 @@ export default {
       try {
         const result = await Product.findById(productId);
         if (!result) throw new ErrorResponse('product dose not exist', 400);
+        result.trendCount += 1;
+        result.save();
         return result;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
@@ -153,13 +158,25 @@ export default {
     },
     reviews: async (id: string, comments: string, user: string) => {
       try {
-        const result = await Product.findById(id);
+        const result = await Product.findByIdAndUpdate(
+          id,
+          {
+            reviews: {
+              $push: {
+                user: new mongoose.Types.ObjectId(user),
+                comments,
+              },
+            },
+          },
+          { new: true }
+        );
+        // const result = await Product.findById(id);
         if (!result) throw new Error('invalid product');
-        result.reviews?.push({
-          user: new mongoose.Types.ObjectId(user),
-          comments,
-        });
-        result.save();
+        // result.reviews?.push({
+        //   user: new mongoose.Types.ObjectId(user),
+        //   comments,
+        // });
+        // result.save();
         return result;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {

@@ -25,6 +25,7 @@ export interface ProductInterface extends Document {
     size?: string;
   };
   seller: Types.ObjectId;
+  trendCount: number;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 }

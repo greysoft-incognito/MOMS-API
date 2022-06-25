@@ -17,6 +17,7 @@ import productRoute from './api/routes/product.route';
 import searchRoute from './api/routes/search.route';
 import categoryRoute from './api/routes/categories.route';
 import cartRoute from './api/routes/cart.route';
+import sellerRoute from './api/routes/seller.route';
 import cookieParser from 'cookie-parser';
 
 require('./api/helpers/passport');
@@ -66,6 +67,7 @@ app.use('/api/search', searchRoute);
 app.use('/api/me', authMiddleware.userIsAuth, userRoute);
 app.use('/api/cart', cartRoute);
 app.use('/api/shops', categoryRoute);
+app.use('/api/seller', authMiddleware.sellerIsAuth, sellerRoute);
 
 app.use(errorHandler);
 app.use('*', error404);

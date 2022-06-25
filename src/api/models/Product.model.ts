@@ -33,6 +33,7 @@ const productSchema: Schema = new Schema<ProductInterface>(
       size: { type: String },
     },
     seller: { type: Schema.Types.ObjectId, ref: 'User' },
+    trendCount: { type: Number },
   },
   { timestamps: true }
 );

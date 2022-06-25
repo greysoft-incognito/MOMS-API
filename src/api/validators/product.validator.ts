@@ -60,5 +60,6 @@ export default {
     query('color').optional().isString(),
     query('size').optional().isInt(),
     query('page').optional().isInt(),
+    query('trending').optional().isInt().toInt(),
   ],
 };
