@@ -15,16 +15,10 @@ export default {
         throw new ErrorResponse('product dose not exist', 400);
       if (!req.user?._id)
         throw new ErrorResponse('product dose not exist', 400);
-      const cart = req.session.cart;
+      // const cart = req.session.cart;
       const data: Partial<OrderInterface> = {
-        cart: cart,
-        totalPrice: (function (): number {
-          const num = cart.reduce((total: number, val: CartInterface) => {
-            return total + val.price * val.quantity;
-          }, 0);
-          if (num) return num;
-          else return 0;
-        })(),
+        cart: JSON.parse(req.body.cart),
+        totalPrice: req.body.totalPrice,
         buyer: new Types.ObjectId(req.user._id),
         seller: new Types.ObjectId(req.body.sellerId),
         txn_id: req.body.txnId,

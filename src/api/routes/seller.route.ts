@@ -8,7 +8,7 @@ import { img, avi } from '../middlewares/s3';
 
 const router = Router();
 
-router.put(
+router.post(
   '/password',
   userValidator.password,
   validator,

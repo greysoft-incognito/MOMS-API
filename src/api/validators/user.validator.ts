@@ -58,11 +58,11 @@ export default {
   editShop: [
     check('phone').exists().isInt().toInt(),
 
-    check('name').exists().isString(),
-    check('desc').exists().isString(),
-    check('bankAccountName').exists().isString(),
-    check('bankName').exists().isString(),
-    check('bankAccountNumber').exists().isString(),
+    check('name').optional().isString(),
+    check('desc').optional().isString(),
+    check('bankAccountName').optional().isString(),
+    check('bankName').optional().isString(),
+    check('bankAccountNumber').optional().isString(),
     check('avatar')
       .optional()
       .custom(function (value, { req }) {

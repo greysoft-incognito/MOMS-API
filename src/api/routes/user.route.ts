@@ -31,7 +31,7 @@ router.post('order/', orderValidator.create, validator, orderController.create);
 router.get('order/', orderController.getAll);
 
 router.get(
-  'order/orderId',
+  'order/:orderId',
   orderValidator.get,
   validator,
   orderController.getOne
