@@ -163,8 +163,8 @@ export default {
         const result = await Product.findByIdAndUpdate(
           id,
           {
-            reviews: {
-              $push: {
+            $push: {
+              reviews: {
                 user: new mongoose.Types.ObjectId(user),
                 comments,
               },
