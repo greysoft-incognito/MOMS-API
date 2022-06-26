@@ -160,14 +160,15 @@ export default {
     },
     reviews: async (id: string, comments: string, user: string) => {
       try {
+        const data = {
+          user: new mongoose.Types.ObjectId(user),
+          comments,
+        };
         const result = await Product.findByIdAndUpdate(
           id,
           {
             $push: {
-              reviews: {
-                user: new mongoose.Types.ObjectId(user),
-                comments,
-              },
+              reviews: data,
             },
           },
           { new: true }

@@ -21,7 +21,7 @@ const productSchema: Schema = new Schema<ProductInterface>(
       new Schema(
         {
           user: { type: Schema.Types.ObjectId, ref: 'User' },
-          comments: { type: String },
+          comments: { type: String},
         },
         { timestamps: true }
       ),
