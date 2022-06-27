@@ -1,5 +1,6 @@
 import { Document, Types } from 'mongoose';
 import { Request } from 'express';
+import { ProductInterface } from './Product.interface';
 
 export type CartInterface = {
   product: Types.ObjectId;
@@ -14,7 +15,7 @@ export type CartInterface = {
 };
 
 export interface OrderInterface extends Document {
-  cart: string;
+  cart: string | ProductInterface[];
   totalPrice: number;
   buyer: Types.ObjectId;
   seller: Types.ObjectId;

@@ -2,15 +2,36 @@ import Order from '../models/Order.model';
 import { OrderInterface } from '../interfaces/Order.interface';
 import helper from '../helpers/helper';
 import { ErrorResponse } from '../helpers/response';
+import { ProductInterface } from '../interfaces/Product.interface';
+import Product from '../models/Product.model';
 
 export default {
   createOrder: async (data: Partial<OrderInterface>) => {
     try {
-      console.log(data.cart);
-
+      const cart: ProductInterface[] = [];
       const order = new Order(data);
       const result = await order.save();
-      result.cart = JSON.parse(JSON.stringify(result.cart));
+      const x = JSON.parse(data.cart as string) as unknown as Array<
+        ProductInterface & { quantity: number }
+      >;
+      x.forEach((val) => {
+        Product.findById(val.product._id)
+          .then((doc) => {
+            if (!doc) throw Error('item does not exist');
+            if (doc?.qtyInStore === 0)
+              throw Error(`${val.name} no longer in store`);
+            doc.qtyInStore! = doc.qtyInStore - val.quantity;
+            return doc.save();
+          })
+          .then((doc) => {
+            cart.push(doc);
+          })
+          .catch((error) => {
+            throw error;
+          });
+      });
+      result.cart = cart;
+
       return result;
     } catch (error: any) {
       throw new Error(error);
