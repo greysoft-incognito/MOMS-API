@@ -4,9 +4,9 @@ export default {
   create: [
     body('sellerId').exists().isMongoId(),
     body('cart').exists().isString(),
-    body('totalPrice').exists().isInt(),
-    body('txnId').exists().isInt(),
-    body('txnReference').exists().isInt(),
+    body('totalPrice').exists(),
+    body('txnId').exists(),
+    body('txnReference').exists(),
     body('txnMessage').optional().isString().trim(),
     body('txnStatus').optional(),
     body('discount').optional(),
