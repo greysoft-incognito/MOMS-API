@@ -6,6 +6,8 @@ import { ErrorResponse } from '../helpers/response';
 export default {
   createOrder: async (data: Partial<OrderInterface>) => {
     try {
+      console.log(data.cart);
+
       const order = new Order(data);
       const result = await order.save();
       result.cart = JSON.parse(JSON.stringify(result.cart));
