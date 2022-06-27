@@ -14,7 +14,7 @@ export type CartInterface = {
 };
 
 export interface OrderInterface extends Document {
-  cart: CartInterface[];
+  cart: any;
   totalPrice: number;
   buyer: Types.ObjectId;
   seller: Types.ObjectId;
