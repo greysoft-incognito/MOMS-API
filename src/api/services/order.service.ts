@@ -8,6 +8,7 @@ export default {
     try {
       const order = new Order(data);
       const result = await order.save();
+      result.cart = JSON.parse(result.cart);
       return result;
     } catch (error: any) {
       throw new Error(error);
