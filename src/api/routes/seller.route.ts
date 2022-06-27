@@ -54,10 +54,10 @@ router.put(
 //   orderController.update
 // );
 
-router.get('order/', orderController.getAll);
+router.get('/order', orderController.getAll);
 
 router.get(
-  'order/:orderId',
+  '/order/:orderId',
   orderValidator.get,
   validator,
   orderController.getOne

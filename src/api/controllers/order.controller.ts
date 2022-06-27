@@ -11,10 +11,10 @@ import { Types } from 'mongoose';
 export default {
   create: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      if (!req.session.cart)
-        throw new ErrorResponse('product dose not exist', 400);
+      // if (!req.session.cart)
+      //   throw new ErrorResponse('product dose not exist', 400);
       if (!req.user?._id)
-        throw new ErrorResponse('product dose not exist', 400);
+        throw new ErrorResponse('user is not logged in ', 400);
       // const cart = req.session.cart;
       const data: Partial<OrderInterface> = {
         cart: JSON.parse(req.body.cart),
