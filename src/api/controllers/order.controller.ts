@@ -17,7 +17,7 @@ export default {
         throw new ErrorResponse('user is not logged in ', 400);
       // const cart = req.session.cart;
       const data: Partial<OrderInterface> = {
-        cart: JSON.parse(req.body.cart),
+        cart: req.body.cart,
         totalPrice: req.body.totalPrice,
         buyer: new Types.ObjectId(req.user._id),
         seller: new Types.ObjectId(req.body.sellerId),

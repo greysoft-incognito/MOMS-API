@@ -3,7 +3,7 @@ import { OrderInterface } from '../interfaces/Order.interface';
 
 const orderSchema: Schema = new Schema<OrderInterface>(
   {
-    cart: new Schema({}, { strict: false, _id: false }),
+    cart: { type: String },
     totalPrice: { type: Number },
     buyer: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     seller: { type: Schema.Types.ObjectId, ref: 'User', required: true },
