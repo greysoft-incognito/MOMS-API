@@ -36,9 +36,9 @@ export default {
       throw new Error(error);
     }
   },
-  getAllOrders: async (query: object[], page: number) => {
+  getAllOrders: async (id: any) => {
     try {
-      const result = await helper.paginate(Order, page, query);
+      const result = await Order.find().or([{ seller: id }, { buyer: id }]);
       return result;
     } catch (error: any) {
       throw new Error(error);

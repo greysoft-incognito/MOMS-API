@@ -3,6 +3,7 @@ import { query, param, body } from 'express-validator';
 export default {
   create: [
     body('sellerId').exists().isMongoId(),
+    body('buyerId').exists().isMongoId(),
     body('cart').exists().isString(),
     body('totalPrice').exists(),
     body('txnId').exists(),

@@ -66,11 +66,9 @@ export default {
   },
   getAll: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const page = req.query.page as unknown as number;
-      const query = req.query ? safeQuery(req) : {};
-      delete query.page;
-      const arr = Object.entries(query);
-      const result = await orderService.getAllOrders(arr, page);
+      if (!req.user?._id)
+        throw new ErrorResponse('user is not logged in ', 400);
+      const result = await orderService.getAllOrders(req.user._id);
       SuccessResponse.send(res, result);
     } catch (error: any) {
       next(error);
