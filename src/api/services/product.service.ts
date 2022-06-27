@@ -98,8 +98,8 @@ export default {
               price: { $lte: Object.values(query)[0] },
             });
           } else if (Object.keys(query)[0] == 'trending') {
-            result = await Product.find().sort({ trendCount: -1 });
-            result.splice(0, Object.values(query)[0]);
+            const _result = await Product.find().sort({ trendCount: -1 });
+            result = _result.splice(0, Object.values(query)[0]);
           } else {
             const [key, value] = Object.entries(query)[0];
             result = await Product.find({

@@ -36,8 +36,8 @@ export default {
   ],
   name: [check('fullname').exists().isString()],
   verify: [
-    check('bvn').exists().isInt().toInt(),
-    check('nin').exists().isInt().toInt(),
+    check('bvn').exists().toInt(),
+    check('nin').exists().toInt(),
     check('CACnumber').exists().isString(),
     check('img')
       .optional()
@@ -63,20 +63,5 @@ export default {
     check('bankAccountName').optional().isString(),
     check('bankName').optional().isString(),
     check('bankAccountNumber').optional().isString(),
-    check('avatar')
-      .optional()
-      .custom(function (value, { req }) {
-        const extension = path.extname(req.file.originalname).toLowerCase();
-        switch (extension) {
-          case '.jpg':
-            return '.jpg';
-          case '.jpeg':
-            return '.jpeg';
-          case '.png':
-            return '.png';
-          default:
-            return false;
-        }
-      }),
   ],
 };

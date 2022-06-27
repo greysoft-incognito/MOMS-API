@@ -42,7 +42,6 @@ router.post(
 
 router.put(
   '/edit-shop',
-  avi,
   userValidator.editShop,
   validator,
   userController.editShop
