@@ -50,7 +50,7 @@ app.use(
     origin: [
       'http://localhost:8080',
       'http://192.168.130.74:8080',
-      'https://moms-express.netlify.apps',
+      'https://moms-express.netlify.app',
     ],
     //exposedHeaders: ['set-cookie'],
   })
